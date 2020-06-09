@@ -20,3 +20,7 @@ app.use(session({secret: "SecretKey"}));
 
 //redefine views folder to the right path
 app.set('views', path.join(__dirname, './views'));
+
+
+
+app.listen(port, () => console.log(`App listening on port ${port}!`));
