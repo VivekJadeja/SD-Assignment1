@@ -1,4 +1,4 @@
-#SETUP INFORMATION  
+##SETUP INFORMATION  
 
 ## Running the Server  
 First of all make sure you have Node installed on your computer. You can get it from here https://nodejs.org/en/download/   
