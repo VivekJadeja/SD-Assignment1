@@ -21,6 +21,49 @@ app.use(session({secret: "SecretKey"}));
 //redefine views folder to the right path
 app.set('views', path.join(__dirname, './views'));
 
+function user(email, f_name, has_requested_quote)
+{
+    this.email = email;
+    this.f_name = f_name;
+    this.has_requested_quote = has_requested_quote;
+}
 
+// ----------------------------- ROUTES -------------------------------- //
+// home page
+app.get('/', function(req, res){
+    res.sendFile('index.html');
+});
+
+// new customers sign up form
+app.get('/signup', function(req, res){
+    req.render('signup');
+});
+
+app.post('/signup', function(req, res){
+    var data = {
+        email : req.body.email,
+        password : req.body.password 
+    };
+    db.signUp(data, function(err)
+    {
+        if(err)
+            res.render('errorPage', {message: "Something went wrong. Please try again"});
+        else
+            res.redirect('/login');
+    });
+});
+
+app.get('/login', function(req, res){
+    res.render('login');
+});
+
+app.post('/login', function(req, res){
+
+});
+
+
+app.get('*', function(req, res){
+    res.render('errorPage', {message: "This page doesn't exist"});
+});
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

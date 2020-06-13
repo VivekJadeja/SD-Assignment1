@@ -7,3 +7,49 @@ let pool = mysql.createPool({
     password: '',
     database: '' 
 });
+
+signUp = function(data, callback)
+{
+    pool.getConnection(function(err, connection)
+    {
+        if(err)
+        {
+            callback(true);
+            return;
+        }
+        else
+        {
+            var sql = "SELECT email FROM customer_info WHERE email = '";
+            sql += data.email;
+            sql += "';";
+            connection.query(sql, function(err, result)
+            {
+                if(err)
+                {
+                    connection.release();
+                    callback(true);
+                    return;
+                }
+                else
+                {
+                    sql = "INSERT INTO customer_info VALUES";
+                    // FINISH THE QUERY ONCE DB IS CREATED
+                    connection.query(sql, function(err, result)
+                    {
+                        if(err)
+                        {
+                            connection.release();
+                            callback(true);
+                            return;
+                        }
+                        else
+                        {
+                            callback(false);
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+module.exports.signUp = signUp;
