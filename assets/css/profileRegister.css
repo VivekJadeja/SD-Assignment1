@@ -1,0 +1,67 @@
+.wrapper {
+    text-align: center;
+    padding: 3%;
+    font-family: sans-serif;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+
+#form-title {
+    text-align: center;
+    padding: 1%;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.form {
+    margin: 0 auto;
+    width: 180px;
+}
+
+.form label {
+    display: inline-block;
+    text-align: right;
+    padding: 2%;
+}
+
+.form select {
+    display: inline-block;
+    text-align: left;
+    text-align: center;
+    width: 105%;
+}
+
+.form input {
+    display: inline-block;
+    text-align: left;
+    padding: 2%;
+}
+
+.form i {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+}
+
+.form small {
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.formsuccess input {
+    border-color: #2ecc71;
+}
+
+.formerror input {
+    border-color: #e74c3c;
+}
+
+input[type=text]:focus {
+    outline: 2px solid #14e069;
+    /* oranges! yey */
+}
