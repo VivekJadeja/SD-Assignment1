@@ -36,7 +36,10 @@ app.get('/', function(req, res){
 
 // new customers sign up form
 app.get('/signup', function(req, res){
-    req.render('signup');
+    if(req.session.user)
+        res.render('errorPage', {message: "You are already signed up"});
+    else
+        res.sendFile(path.join(__dirname, 'views/signup.html'));
 });
 
 app.post('/signup', function(req, res){
@@ -54,7 +57,10 @@ app.post('/signup', function(req, res){
 });
 
 app.get('/login', function(req, res){
-    res.render('login');
+    if(req.session.user)
+        res.render('errorPage', {message: "You are already logged in"});
+    else
+        res.sendFile(path.join(__dirname, 'views/login.html'));
 });
 
 app.post('/login', function(req, res){
