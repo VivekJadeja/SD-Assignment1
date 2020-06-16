@@ -83,7 +83,6 @@ app.get('/requestQuote', function(req, res)
         if(day.toString().length == 1)
             day = '0' + day;
         date += month + "-" + day;
-        console.log(date);
         var customer = {
             address1 : "1234 Main St",
             address2 : "#100",
