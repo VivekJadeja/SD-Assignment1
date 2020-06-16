@@ -101,6 +101,65 @@ app.post('/requestQuote', function(req, res)
     console.log('got it');
 });
 
+app.get('/userHome', function(req, res)
+{
+    // if(!req.session.user)
+    //     res.render('errorPage', {message: "You need to be logged in"});
+    // else if(!req.session.user.has_filled_out_profile)
+    //     res.render('errorPage', {message: "You need to be fill out your profile info"});
+    // else
+    {
+        // get this data from db later
+        // only for users 
+        var history = 
+        [
+            {
+                gallonsRequested: 5,
+                quoteDate: "06/16/2020",
+                dueDate: "06/26/2020",
+                address1: "1234 Main St.",
+                address2: "#100",
+                city: "Houston",
+                state: "TX",
+                zipcode: 77089,
+                price: 5,
+                total: 25
+            },
+            {
+                gallonsRequested: 5,
+                quoteDate: "06/16/2020",
+                dueDate: "06/26/2020",
+                address1: "1234 Main St.",
+                address2: "#100",
+                city: "Houston",
+                state: "TX",
+                zipcode: 77089,
+                price: 5,
+                total: 25
+            },
+            {
+                gallonsRequested: 5,
+                quoteDate: "06/16/2020",
+                dueDate: "06/26/2020",
+                address1: "1234 Main St.",
+                address2: "#100",
+                city: "Houston",
+                state: "TX",
+                zipcode: 77089,
+                price: 5,
+                total: 25
+            }
+        ];
+
+        var customer = {
+            name : "Daniel",
+            history : history
+        }
+        res.render('userHome.ejs', {customer: customer});
+    }
+});
+
+
 app.get('*', function(req, res){
     res.render('errorPage', {message: "This page doesn't exist."});
 });
