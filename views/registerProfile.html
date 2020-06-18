@@ -102,8 +102,9 @@
           errors += "Please fill your zip code field.\n"
         if(zipcode.length < 5)
           errors += "Please fill your zip code field with minimum 5 numbers.\n"
-      
-        alert(errors)
+        if(error != "")
+          alert(errors)
+          
       }
     </script>  
   </body>
