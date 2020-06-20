@@ -8,6 +8,7 @@
   <meta content="" name="keywords">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="/../assets/css/bootstrap.min.css" rel="stylesheet">
@@ -76,37 +77,17 @@
             </div>
             <div class="formerror">
               <label for="zipCode">Zip Code:</label>
-              <input type="text" placeholder ="Zip Code" id="zipCode" name="zipCode" minlength="5" maxlength="9" required>
+              <input type="number" placeholder ="Zip Code" id="zipCode" name="zipCode" minlength="5" maxlength="9" required>
             </div>
           <div class="wrapper">
-            <button type="submit"  class="btn btn-primary" onClick="validation(fullName.value,streetAddress1.value,streetAddress2.value,city.value,state.value,zipCode.value)">Complete Profile</button>
+            <button type="submit"  class="btn btn-primary">Complete Profile</button>
           </div>
         </form>  
         </div>
       </div> 
     </section>
     
-    <script>
-      function validation(fullName,street1,street2,city,state,zipcode)
-      {
-        var errors = "";
-        if(fullName === "")
-          errors += "Please fill your Full Name field.\n"
-        if(street1 === "")
-          errors += "Please fill your Street Address 1 field.\n"
-        if(city === "")
-          errors += "Please fill your City field.\n"
-        if(state === "")
-          errors += "Please fill your State field.\n"
-        if(zipcode === "")
-          errors += "Please fill your zip code field.\n"
-        if(zipcode.length < 5)
-          errors += "Please fill your zip code field with minimum 5 numbers.\n"
-        if(error != "")
-          alert(errors)
-          
-      }
-    </script>  
+    
   </body>
 
   </html>
