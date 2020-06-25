@@ -32,7 +32,10 @@ function user(email, f_name, has_requested_quote, has_filled_out_profile)
 // ----------------------------- ROUTES -------------------------------- //
 // home page
 app.get('/', function(req, res){
-    res.sendFile('index.html');
+    if(!req.session.user)
+        res.sendFile(path.join(__dirname,'main.html'));
+    else
+        res.redirect('/userHome')
 });
 
 // new customers sign up form
