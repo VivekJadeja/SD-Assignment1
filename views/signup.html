@@ -47,7 +47,8 @@
       <form action="/signup" method="POST">
           <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" name ="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+          <input type="email" name ="email" id="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+          <span id="ajaxRes"></span>
           </div>
           <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
@@ -73,8 +74,35 @@
           alert("Passwords do not match!");
           return false;
         }
+        else if(document.getElementById("ajaxRes").innerHTML === "This email is taken")
+        {
+          alert("There is already an account associated with this email");
+          return false;
+        }
         else
           return true;
+      }
+    </script>
+
+    <script>
+      async function checkEmail(email) {
+        let response = await fetch(`http://localhost:3000/emailCheck/${email}`);
+        let data = await response.json();
+        return data;
+      }
+
+      document.getElementById("email").onchange = function()
+      {
+        let email = document.getElementById("email").value;
+        checkEmail(email).then(function(data)
+        {
+          let result = "This email is ";
+          if(data.exists)
+            result += "taken"
+          else
+            result += "free";
+          document.getElementById("ajaxRes").innerHTML = result;
+        });
       }
     </script>
 

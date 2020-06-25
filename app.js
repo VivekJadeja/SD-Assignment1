@@ -210,6 +210,16 @@ app.get('/userHome', function(req, res)
     }
 });
 
+// checks if email exists when signing up
+app.get('/emailCheck/:email', function(req,res)
+{
+    //will actually make a db call
+    if(req.params.email === "daniel.evans17@outlook.com")
+        res.json({exists: true});
+    else
+        res.json({exists: false});
+});
+
 app.get('*', function(req, res){
     res.render('errorPage', {message: "This page doesn't exist."});
 });
