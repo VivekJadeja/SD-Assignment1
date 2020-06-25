@@ -34,8 +34,10 @@ function user(email, f_name, has_requested_quote, has_filled_out_profile)
 app.get('/', function(req, res){
     if(!req.session.user)
         res.sendFile(path.join(__dirname,'main.html'));
+    else if(req.session.user.has_filled_out_profile)
+        res.redirect('/userHome');
     else
-        res.redirect('/userHome')
+        res.redirect('registerProfile');
 });
 
 // new customers sign up form
@@ -102,6 +104,19 @@ app.post('/login', function(req, res){
     console.log('-----POST Request of Login ------');
     console.log(data.email);
     console.log(data.password);
+});
+
+app.get('/logout', function(req, res)
+{
+    if(!req.session.user)
+        res.send('errorPage', {message: "You are not logged in"});
+    else
+    {
+        req.session.destroy(function()
+        {
+            res.redirect('/login');
+        });
+    }
 });
 
 app.get('/requestQuote', function(req, res)
