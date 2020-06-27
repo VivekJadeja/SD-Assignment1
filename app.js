@@ -5,6 +5,8 @@ var port = process.env.PORT || 3000;
 var path = require('path');
 var db = require('./server/db.js');
 var bodyParser = require('body-parser');
+var passwordHash = require('password-hash');
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -51,7 +53,7 @@ app.get('/login', function(req, res){
 app.post('/login', function(req, res){
     var data = {
         email : req.body.email,
-        password : req.body.password 
+        password : passwordHash.generate(req.body.password) 
     };
     // this function will just get required info from db (has requested quote, has filled out profile where username=email and pw = hashed pw)
     // db.loginAndGetInfo(data, function(err, info)
