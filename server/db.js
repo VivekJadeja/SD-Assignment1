@@ -19,7 +19,12 @@ signUp = function(data, callback)
         }
         else
         {
-            sql = "INSERT INTO customer_info VALUES";
+            sql = "INSERT INTO UserCredentials VALUES(";
+            sql += email;
+            sql += ",";
+            sql += password;
+            sql += ")";
+            sql += ";";
             // FINISH THE QUERY ONCE DB IS CREATED
             connection.query(sql, function(err, result)
             {
