@@ -30,7 +30,7 @@ function user(email, f_name, has_requested_quote, has_filled_out_profile)
 }
 
 // ----------------------------- ROUTES -------------------------------- //
-// home page
+// HOME ROUTE
 app.get('/', function(req, res){
     if(!req.session.user)
         res.sendFile(path.join(__dirname,'main.html'));
@@ -40,54 +40,7 @@ app.get('/', function(req, res){
         res.redirect('registerProfile');
 });
 
-// new customers sign up form
-app.get('/signup', function(req, res){
-    if(req.session.user)
-        res.render('errorPage', {message: "You are already signed up"});
-    else
-        res.sendFile(path.join(__dirname, 'views/signup.html'));
-});
-
-app.post('/signup', function(req, res){
-    var data = {
-        email : req.body.email,
-        password : req.body.password 
-    };
-    console.log('-----POST Request of Signup ------');
-    console.log(data.email);
-    console.log(data.password);
-    // db.signUp(data, function(err)
-    // {
-    //     if(err)
-    //         res.render('errorPage', {message: "Something went wrong. Please try again"});
-    //     else
-    //         res.redirect('/login');
-    // });
-    res.send('<h1>success! check console for info</h1><a href="/">Home</a>');
-});
-
-app.get('/registerProfile', function(req, res)
-{
-    // if(!req.session.user)
-    //     res.render('errorPage', "You need to be logged in");
-    // else if(req.session.user.has_filled_out_profile)
-    //     res.render('errorPage', "You have already provided your information");
-    // else
-        res.sendFile(path.join(__dirname, '/views/registerProfile.html'));
-});
-
-app.post('/registerProfile', function(req, res)
-{
-    res.send('<h1>success! check console for info</h1><a href="/">Home</a>');
-    console.log('-----POST Request of Register Profile ------');
-    console.log(req.body.fullName);
-    console.log(req.body.streetAddress1);
-    console.log(req.body.streetAddress2);
-    console.log(req.body.city);
-    console.log(req.body.state);
-    console.log(req.body.zipCode);    
-});
-
+// LOGIN MODULE
 app.get('/login', function(req, res){
     if(req.session.user)
         res.render('errorPage', {message: "You are already logged in"});
@@ -96,14 +49,27 @@ app.get('/login', function(req, res){
 });
 
 app.post('/login', function(req, res){
-    res.send('<h1>success! check console for info</h1><a href="/">Home</a>');
     var data = {
         email : req.body.email,
         password : req.body.password 
     };
-    console.log('-----POST Request of Login ------');
-    console.log(data.email);
-    console.log(data.password);
+    // this function will just get required info from db (has requested quote, has filled out profile where username=email and pw = hashed pw)
+    // db.loginAndGetInfo(data, function(err, info)
+    // {
+    //     if(err)
+    //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+    //     else
+    //     {
+    //         if(!info)
+    //             res.render('errorPage', { message: "The email or password is incorrect"});
+    //         else
+    //         {
+    //             req.session.user = new user(data.email, info.f_name, info.has_requested_quote, info.has_filled_out_profile);
+    //             res.redirect('/');
+    //         }
+    //     }
+    // });
+    res.redirect('/'); // DELETE THIS
 });
 
 app.get('/logout', function(req, res)
@@ -119,6 +85,81 @@ app.get('/logout', function(req, res)
     }
 });
 
+
+// SIGN UP MODULE
+app.get('/signup', function(req, res){
+    if(req.session.user)
+        res.render('errorPage', {message: "You are already signed up"});
+    else
+        res.sendFile(path.join(__dirname, 'views/signup.html'));
+});
+
+app.post('/signup', function(req, res){
+    var data = {
+        email : req.body.email,
+        password : req.body.password 
+    };
+    // db.signUp(data, function(err)
+    // {
+    //     if(err)
+    //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+    //     else
+    //         res.redirect('/login');
+    // });
+    res.redirect('/login'); // DELETE THIS ONCE DB FUNCTIONS ARE WRITTEN
+});
+
+// checks if email exists when signing up
+app.get('/emailCheck/:email', function(req,res)
+{
+    // db.emailCheck(req.params.email, function(err, exists){
+    //     if(err)
+    //         res.json({exists: true}); // might need to discuss what happens when connection to db fails
+    //     else
+    //         res.json({exists : exists});
+    // });
+    if(req.params.email === "daniel.evans17@outlook.com")
+        res.json({exists: true});
+    else
+        res.json({exists: false});
+});
+
+// PROFILE MANAGEMENT MODULE
+app.get('/registerProfile', function(req, res)
+{
+    // if(!req.session.user)
+    //     res.render('errorPage', "You need to be logged in");
+    // else if(req.session.user.has_filled_out_profile)
+    //     res.render('errorPage', "You have already provided your information");
+    // else
+        res.sendFile(path.join(__dirname, '/views/registerProfile.html'));
+});
+
+app.post('/registerProfile', function(req, res)
+{
+    var data = {
+        fullName : req.body.fullName,
+        address1 : req.body.streetAddress1,
+        address2 : req.body.streetAddress2,
+        city : req.body.city,
+        state : req.body.state,
+        zipcode : req.body.zipCode
+    }
+    // db.saveInfo(data, function(err)
+    // {
+    //     if(err)
+    //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+    //      else
+    //      {
+    //         req.session.user.has_filled_out_profile = true;
+    //         res.redirect('/userHome');
+    //      }
+    // });
+    res.redirect('/userHome'); // DELETE THIS
+});
+
+
+// FUEL QUOTE/ PRICING MODULE
 app.get('/requestQuote', function(req, res)
 {
     // if(!req.session.user)
@@ -143,15 +184,54 @@ app.get('/requestQuote', function(req, res)
             zipcode : "77089",
             cuDate : date
         }
+        // db.getCustomerAddrress(req.session.user.email, function(err, info)
+        // {
+        //     if(err)
+        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+        //     else
+        //     {
+        //         var customer = {
+        //             address1 : info.address1,
+        //             address2 : info.address2,
+        //             city : info.city,
+        //             state : info.state,
+        //             zipcode : info.state,
+        //             cuDate : date
+        //         }
+        //         res.render('quoteRequest', {customer:customer});
+        //     }
+        // });
         res.render('quoteRequest', {customer:customer});
     }
 });
 
 app.post('/requestQuote', function(req, res)
 {
-    console.log('got it');
+    var data = {
+        gallons : req.body.gallons,
+        deliveryDate : req.body.date,
+        address1 : req.body.address1,
+        address2 : req.body.address2,
+        city : req.body.city,
+        state : req.body.state,
+        zipcode : req.body.zipcode,
+        price : req.body.price,
+        total : price * gallons
+    }
+    // db.requestQuote(data, function(err)
+    // {
+    //     if(err)
+    //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+    //     else
+    //     {
+    //         req.session.user.has_requested_quote = true;
+    //         res.redirect('/userHome');
+    //     }
+    // });
+    res.redirect('/userHome'); // DELETE LATER
 });
 
+// QUOTE HISTORY MODULE
 app.get('/userHome', function(req, res)
 {
     // if(!req.session.user)
@@ -162,6 +242,19 @@ app.get('/userHome', function(req, res)
     {
         // get this data from db later
         // only for users 
+        // db.getCustomerHistory(req.session.user.email, function(err, history)
+        // {   
+        //     if(err)
+        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+        //     else
+        //     {
+        //         var customer = {
+        //             name : req.session.user.f_name,
+        //             history : history
+        //         }
+        //         res.render('userHome.ejs', {customer: customer});
+        //     }
+        // });
         var history = 
         [
             {
@@ -206,18 +299,8 @@ app.get('/userHome', function(req, res)
             name : "Daniel",
             history : history
         }
-        res.render('userHome.ejs', {customer: customer});
+        res.render('userHome.ejs', {customer: customer}); // DELETE THIS LATER
     }
-});
-
-// checks if email exists when signing up
-app.get('/emailCheck/:email', function(req,res)
-{
-    //will actually make a db call
-    if(req.params.email === "daniel.evans17@outlook.com")
-        res.json({exists: true});
-    else
-        res.json({exists: false});
 });
 
 app.get('*', function(req, res){
