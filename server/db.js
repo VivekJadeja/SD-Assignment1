@@ -19,9 +19,8 @@ signUp = function(data, callback)
         }
         else
         {
-            var sql = "SELECT email FROM customer_info WHERE email = '";
-            sql += data.email;
-            sql += "';";
+            sql = "INSERT INTO customer_info VALUES";
+            // FINISH THE QUERY ONCE DB IS CREATED
             connection.query(sql, function(err, result)
             {
                 if(err)
@@ -32,21 +31,7 @@ signUp = function(data, callback)
                 }
                 else
                 {
-                    sql = "INSERT INTO customer_info VALUES";
-                    // FINISH THE QUERY ONCE DB IS CREATED
-                    connection.query(sql, function(err, result)
-                    {
-                        if(err)
-                        {
-                            connection.release();
-                            callback(true);
-                            return;
-                        }
-                        else
-                        {
-                            callback(false);
-                        }
-                    });
+                    callback(false);
                 }
             });
         }
