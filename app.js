@@ -72,7 +72,8 @@ app.post('/login', function(req, res) {
         //             res.render('errorPage', { message: "The email or password is incorrect"});
         //         else
         //         {
-        //             req.session.user = new user(data.email, info.f_name, info.has_requested_quote, info.has_filled_out_profile);
+        //             var filledOut = info.fullName == ""? false:true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
+        //             req.session.user = new user(data.email, info.fullName, info.historyExists, filledOut);
         //             res.redirect('/');
         //         }
         //     }
@@ -108,7 +109,7 @@ app.get('/signup', function(req, res) {
 app.post('/signup', function(req, res) {
     var data = {
         email: req.body.email,
-        password: req.body.password
+        password: passwordHash.generate(req.body.password)
     };
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
     if ((validateEmail(data.email)) && data.email !== "" && data.password !== "") {
@@ -191,7 +192,8 @@ app.post('/registerProfile', function(req, res) {
             address2: req.body.streetAddress2,
             city: req.body.city,
             state: req.body.state,
-            zipcode: req.body.zipCode
+            zipcode: req.body.zipCode,
+            email: req.session.user.email
         }
         //validating the profile information of the user
     var message = validateRegisterProfile(data)
