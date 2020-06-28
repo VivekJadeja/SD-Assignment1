@@ -248,7 +248,7 @@ app.get('/requestQuote', function(req, res) {
             //             address2 : info.address2,
             //             city : info.city,
             //             state : info.state,
-            //             zipcode : info.state,
+            //             zipcode : info.zipCode,
             //             cuDate : date
             //         }
             //         res.render('quoteRequest', {customer:customer});
@@ -259,9 +259,13 @@ app.get('/requestQuote', function(req, res) {
 });
 
 app.post('/requestQuote', function(req, res) {
+
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     var data = {
         gallons: req.body.gallons,
         deliveryDate: req.body.date,
+        requestedDate: data,
         address1: req.body.address1,
         address2: req.body.address2,
         city: req.body.city,
