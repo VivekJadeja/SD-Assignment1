@@ -197,7 +197,7 @@ app.post('/registerProfile', function(req, res) {
         }
         //validating the profile information of the user
     var message = validateRegisterProfile(data)
-    if (message.message === "true") {
+    if (message.message === "true") {//hello
         // db.saveInfo(data, function(err)
         // {
         //     if(err)
