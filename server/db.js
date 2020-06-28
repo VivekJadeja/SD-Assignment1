@@ -172,7 +172,7 @@ saveInfo = function(data, callback){
         if (err) {
             callback(true);
             return;
-        } else {
+        } else {//hello
             let sql = "UPDATE ClientInformation SET fullName = ";
             sql += data.fullName;
             sql += ", address_1 = ";
