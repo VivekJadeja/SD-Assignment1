@@ -1,0 +1,1172 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for SD-Assignment1/app.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">SD-Assignment1/</a> app.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>35/105</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.45% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/58</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.88% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">32.69% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>34/104</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">var express = require('express');
+var session = require('express-session');
+var app = express();
+var port = process.env.PORT || 3000;
+var path = require('path');
+var db = require('./server/db.js');
+var bodyParser = require('body-parser');
+var passwordHash = require('password-hash');
+&nbsp;
+&nbsp;
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+&nbsp;
+//used to get the correct directory which is the root directory 
+app.use(express.static(path.join(__dirname, './')));
+&nbsp;
+//allows us to use data send from html forms using req.body.name
+app.use(express.urlencoded({ extended: false }));
+&nbsp;
+//each user has a different session so we can keep track of them no matter where they are on the site
+app.use(session({ secret: "SecretKey" }));
+&nbsp;
+//redefine views folder to the right path
+app.set('views', path.join(__dirname, './views'));
+&nbsp;
+<span class="fstat-no" title="function not covered" >function user(email, f_name, has_requested_quote, has_filled_out_profile) {</span>
+<span class="cstat-no" title="statement not covered" >    this.email = email;</span>
+<span class="cstat-no" title="statement not covered" >    this.f_name = f_name;</span>
+<span class="cstat-no" title="statement not covered" >    this.has_requested_quote = has_requested_quote;</span>
+<span class="cstat-no" title="statement not covered" >    this.has_filled_out_profile = has_filled_out_profile;</span>
+}
+&nbsp;
+// ----------------------------- ROUTES -------------------------------- //
+// HOME ROUTE
+app.get('/', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!req.session.user)</span>
+<span class="cstat-no" title="statement not covered" >        res.sendFile(path.join(__dirname, 'main.html'));</span>
+    else <span class="cstat-no" title="statement not covered" >if (req.session.user.has_filled_out_profile)</span>
+<span class="cstat-no" title="statement not covered" >        res.redirect('/userHome');</span>
+    else
+<span class="cstat-no" title="statement not covered" >        res.redirect('registerProfile');</span>
+});
+&nbsp;
+// LOGIN MODULE
+app.get('/login', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >    if (req.session.user)</span>
+<span class="cstat-no" title="statement not covered" >        res.render('errorPage', { message: "You are already logged in" });</span>
+    else
+<span class="cstat-no" title="statement not covered" >        res.sendFile(path.join(__dirname, 'views/login.html'));</span>
+});
+&nbsp;
+function validateEmail(email) {
+    const re = /^(([^&lt;&gt;()\[\]\\.,;:\s@"]+(\.[^&lt;&gt;()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+module.exports.validateEmail = validateEmail;
+&nbsp;
+app.post('/login', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >    var data = {</span>
+        email: req.body.email,
+        password: passwordHash.generate(req.body.password)
+    };
+    //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
+<span class="cstat-no" title="statement not covered" >    if ((validateEmail(data.email)) &amp;&amp; (data.email !== "") &amp;&amp; (data.password !== "")) {</span>
+        // this function will just get required info from db (has requested quote, has filled out profile where username=email and pw = hashed pw)
+        // db.loginAndGetInfo(data, function(err, info)
+        // {
+        //     if(err)
+        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+        //     else
+        //     {
+        //         if(!info)
+        //             res.render('errorPage', { message: "The email or password is incorrect"});
+        //         else
+        //         {
+        //             var filledOut = info.fullName == ""? false:true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
+        //             req.session.user = new user(data.email, info.fullName, info.historyExists, filledOut);
+        //             res.redirect('/');
+        //         }
+        //     }
+        // });
+<span class="cstat-no" title="statement not covered" >        res.redirect('/'); </span>// DELETE THIS
+    } else {
+<span class="cstat-no" title="statement not covered" >        res.render('errorPage', { message: "The email or password is incorrect" });</span>
+    }
+});
+&nbsp;
+app.get('/logout', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!req.session.user)</span>
+<span class="cstat-no" title="statement not covered" >        res.send('errorPage', { message: "You are not logged in" });</span>
+    else {
+<span class="cstat-no" title="statement not covered" >        req.session.destroy(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            res.redirect('/login');</span>
+        });
+    }
+});
+&nbsp;
+&nbsp;
+// SIGN UP MODULE
+app.get('/signup', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+&nbsp;
+    //validation for checking if any of fields are empty
+<span class="cstat-no" title="statement not covered" >    if (req.session.user)</span>
+<span class="cstat-no" title="statement not covered" >        res.render('errorPage', { message: "You are already signed up" });</span>
+    else
+<span class="cstat-no" title="statement not covered" >        res.sendFile(path.join(__dirname, 'views/signup.html'));</span>
+});
+&nbsp;
+&nbsp;
+app.post('/signup', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >    var data = {</span>
+        email: req.body.email,
+        password: passwordHash.generate(req.body.password)
+    };
+    //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
+<span class="cstat-no" title="statement not covered" >    if ((validateEmail(data.email)) &amp;&amp; data.email !== "" &amp;&amp; data.password !== "") {</span>
+        // db.signUp(data, function(err)
+        // {
+        //     if(err)
+        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+        //     else
+        //         res.redirect('/login');
+        // });
+<span class="cstat-no" title="statement not covered" >        res.redirect('/login'); </span>// DELETE THIS ONCE DB FUNCTIONS ARE WRITTEN
+    } else {
+<span class="cstat-no" title="statement not covered" >        res.render('errorPage', { message: "Please enter a vaild email or password" });</span>
+    }
+});
+&nbsp;
+// checks if email exists when signing up
+app.get('/emailCheck/:email', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+    //enforcing validation for email 
+    /*     if (validateEmail(req.params.email)) {
+            // db.emailCheck(req.params.email, function(err, exists){
+            //     if(err)
+            //         res.json({exists: true}); // might need to discuss what happens when connection to db fails
+            //     else
+            //         res.json({exists : exists});
+            // });
+        } else {
+            res.render('errorPage', { message: "Please enter a vaild email or password" });
+        } */
+<span class="cstat-no" title="statement not covered" >    if (req.params.email === "daniel.evans17@outlook.com")</span>
+<span class="cstat-no" title="statement not covered" >        res.json({ exists: true });</span>
+    else
+<span class="cstat-no" title="statement not covered" >        res.json({ exists: false });</span>
+});
+&nbsp;
+// PROFILE MANAGEMENT MODULE
+app.get('/registerProfile', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+    // if(!req.session.user)
+    //     res.render('errorPage', "You need to be logged in");
+    // else if(req.session.user.has_filled_out_profile)
+    //     res.render('errorPage', "You have already provided your information");
+    // else
+<span class="cstat-no" title="statement not covered" >    res.sendFile(path.join(__dirname, '/views/registerProfile.html'));</span>
+});
+&nbsp;
+<span class="fstat-no" title="function not covered" >function validateRegisterProfile(dataObject) {</span>
+<span class="cstat-no" title="statement not covered" >    if (dataObject.fullName === "" || dataObject.fullName.length &gt; 50)</span>
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            message: "Please enter a valid full name with appropiate length"
+        }
+<span class="cstat-no" title="statement not covered" >    if (dataObject.streetAddress1 === "" || dataObject.streetAddress1.length &gt; 100)</span>
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            message: "Please enter a valid street address 1 with appropiate length"
+        }
+<span class="cstat-no" title="statement not covered" >    if (dataObject.streetAddress2.length &gt; 100)</span>
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            message: "Please enter a valid street address 2 with appropiate length"
+        }
+<span class="cstat-no" title="statement not covered" >    if (dataObject.city === "" || dataObject.city.length &gt; 100)</span>
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            message: "Please enter a valid city with appropiate length"
+        }
+<span class="cstat-no" title="statement not covered" >    if (dataObject.state === "" || dataObject.city.length &gt; 2)</span>
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            message: "Please enter a valid state"
+        }
+<span class="cstat-no" title="statement not covered" >    if (dataObject.zipCode === "" || dataObject.zipCode.length &lt; 5 || dataObject.zipCode.length &gt; 9)</span>
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            message: "Please enter a valid zip code with appropiate length"
+        }
+    else
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            message: "true"
+        }
+}
+app.post('/registerProfile', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >    var data = {</span>
+            fullName: req.body.fullName,
+            address1: req.body.streetAddress1,
+            address2: req.body.streetAddress2,
+            city: req.body.city,
+            state: req.body.state,
+            zipcode: req.body.zipCode,
+            email: req.session.user.email
+        }
+        //validating the profile information of the user
+<span class="cstat-no" title="statement not covered" >    var message = validateRegisterProfile(data)</span>
+<span class="cstat-no" title="statement not covered" >    if (message.message === "true") { //hello</span>
+        // db.saveInfo(data, function(err)
+        // {
+        //     if(err)
+        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+        //      else
+        //      {
+        //         req.session.user.has_filled_out_profile = true;
+        //         res.redirect('/userHome');
+        //      }
+        // });
+<span class="cstat-no" title="statement not covered" >        res.redirect('/userHome'); </span>// DELETE THIS
+    } else {
+<span class="cstat-no" title="statement not covered" >        res.render('errorPage', { message: message.message });</span>
+    }
+});
+&nbsp;
+&nbsp;
+// FUEL QUOTE/ PRICING MODULE
+app.get('/requestQuote', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+    // if(!req.session.user)
+    //     res.render('errorPage', {message: "You need to be logged in"});
+    // else
+    {
+        // get this data from db later
+<span class="cstat-no" title="statement not covered" >        var cuDate = new Date();</span>
+<span class="cstat-no" title="statement not covered" >        var date = cuDate.getFullYear() + "-";</span>
+<span class="cstat-no" title="statement not covered" >        var month = cuDate.getMonth() + 1;</span>
+<span class="cstat-no" title="statement not covered" >        if (month.toString().length === 1)</span>
+<span class="cstat-no" title="statement not covered" >            month = '0' + month;</span>
+<span class="cstat-no" title="statement not covered" >        var day = cuDate.getDate();</span>
+<span class="cstat-no" title="statement not covered" >        if (day.toString().length == 1)</span>
+<span class="cstat-no" title="statement not covered" >            day = '0' + day;</span>
+<span class="cstat-no" title="statement not covered" >        date += month + "-" + day;</span>
+<span class="cstat-no" title="statement not covered" >        var customer = {</span>
+                address1: "1234 Main St",
+                address2: "#100",
+                city: "Houston",
+                state: "TX",
+                zipcode: "77089",
+                cuDate: date
+            }
+            // db.getCustomerAddrress(req.session.user.email, function(err, info)
+            // {
+            //     if(err)
+            //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+            //     else
+            //     {
+            //         var customer = {
+            //             address1 : info.address1,
+            //             address2 : info.address2,
+            //             city : info.city,
+            //             state : info.state,
+            //             zipcode : info.zipCode,
+            //             cuDate : date
+            //         }
+            //         res.render('quoteRequest', {customer:customer});
+            //     }
+            // });
+<span class="cstat-no" title="statement not covered" >        res.render('quoteRequest', { customer: customer });</span>
+    }
+});
+&nbsp;
+app.post('/requestQuote', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var today = new Date();</span>
+<span class="cstat-no" title="statement not covered" >    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();</span>
+<span class="cstat-no" title="statement not covered" >    var data = {</span>
+        gallons: req.body.gallons,
+        deliveryDate: req.body.date,
+        requestedDate: data,
+        address1: req.body.address1,
+        address2: req.body.address2,
+        city: req.body.city,
+        state: req.body.state,
+        zipcode: req.body.zipcode,
+        price: req.body.price,
+        total: Number(req.body.price) * Number(req.body.gallons)
+    }
+<span class="cstat-no" title="statement not covered" >    if ((data.gallons !== "") &amp;&amp; (Number(data.gallons) &gt; 0) &amp;&amp; (data.deliveryDate !== ""))</span>
+    // db.requestQuote(data, function(err)
+    // {
+    //     if(err)
+    //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+    //     else
+    //     {
+    //         req.session.user.has_requested_quote = true;
+    //         res.redirect('/userHome');
+    //     }
+    // });
+<span class="cstat-no" title="statement not covered" >        res.redirect('/userHome'); </span>// DELETE LATER
+    else {
+<span class="cstat-no" title="statement not covered" >        res.render('errorPage', { message: "Please enter all fields" });</span>
+    }
+});
+&nbsp;
+// QUOTE HISTORY MODULE
+app.get('/userHome', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+    // if(!req.session.user)
+    //     res.render('errorPage', {message: "You need to be logged in"});
+    // else if(!req.session.user.has_filled_out_profile)
+    //     res.render('errorPage', {message: "You need to be fill out your profile info"});
+    // else
+    {
+        // get this data from db later
+        // only for users 
+        // db.getCustomerHistory(req.session.user.email, function(err, history)
+        // {   
+        //     if(err)
+        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
+        //     else
+        //     {
+        //         var customer = {
+        //             name : req.session.user.f_name,
+        //             history : history
+        //         }
+        //         res.render('userHome.ejs', {customer: customer});
+        //     }
+        // });
+<span class="cstat-no" title="statement not covered" >        var history = [{</span>
+                gallonsRequested: 5,
+                quoteDate: "06/16/2020",
+                dueDate: "06/26/2020",
+                address1: "1234 Main St.",
+                address2: "#100",
+                city: "Houston",
+                state: "TX",
+                zipcode: 77089,
+                price: 5,
+                total: 25
+            },
+            {
+                gallonsRequested: 5,
+                quoteDate: "06/16/2020",
+                dueDate: "06/26/2020",
+                address1: "1234 Main St.",
+                address2: "#100",
+                city: "Houston",
+                state: "TX",
+                zipcode: 77089,
+                price: 5,
+                total: 25
+            },
+            {
+                gallonsRequested: 5,
+                quoteDate: "06/16/2020",
+                dueDate: "06/26/2020",
+                address1: "1234 Main St.",
+                address2: "#100",
+                city: "Houston",
+                state: "TX",
+                zipcode: 77089,
+                price: 5,
+                total: 25
+            }
+        ];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var customer = {</span>
+            name: "Daniel",
+            history: history
+        }
+<span class="cstat-no" title="statement not covered" >        res.render('userHome.ejs', { customer: customer }); </span>// DELETE THIS LATER
+    }
+});
+&nbsp;
+app.get('*', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >    res.render('errorPage', { message: "This page doesn't exist." });</span>
+});
+&nbsp;
+app.listen(port, () =&gt; console.log(`App listening on port ${port}!`));</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 29 2020 19:46:45 GMT-0500 (CDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
