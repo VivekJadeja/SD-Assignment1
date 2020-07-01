@@ -55,13 +55,22 @@ function validateEmail(email) {
 }
 module.exports.validateEmail = validateEmail;
 
+function validateInput(email, password) {
+    if ((validateEmail(data.email)) && (data.email !== "") && (data.password !== ""))
+        return true;
+    else
+        return false;
+}
+
+module.exports.validateInput = validateInput;
+
 app.post('/login', function(req, res) {
     var data = {
         email: req.body.email,
         password: passwordHash.generate(req.body.password)
     };
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
-    if ((validateEmail(data.email)) && (data.email !== "") && (data.password !== "")) {
+    if (validateInput(data.email, data.password)) {
         // this function will just get required info from db (has requested quote, has filled out profile where username=email and pw = hashed pw)
         // db.loginAndGetInfo(data, function(err, info)
         // {
@@ -113,7 +122,7 @@ app.post('/signup', function(req, res) {
         password: passwordHash.generate(req.body.password)
     };
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
-    if ((validateEmail(data.email)) && data.email !== "" && data.password !== "") {
+    if (validateInput(data.email, data.password)) {
         // db.signUp(data, function(err)
         // {
         //     if(err)
@@ -158,34 +167,29 @@ app.get('/registerProfile', function(req, res) {
 
 function validateRegisterProfile(dataObject) {
     if (dataObject.fullName === "" || dataObject.fullName.length > 50)
-        return {
-            message: "Please enter a valid full name with appropiate length"
-        }
-    if (dataObject.streetAddress1 === "" || dataObject.streetAddress1.length > 100)
-        return {
-            message: "Please enter a valid street address 1 with appropiate length"
-        }
-    if (dataObject.streetAddress2.length > 100)
-        return {
-            message: "Please enter a valid street address 2 with appropiate length"
-        }
+        return "Please enter a valid full name with appropiate length"
+
+    if (dataObject.address1 === "" || dataObject.address1.length > 100)
+        return "Please enter a valid street address 1 with appropiate length"
+
+    if (dataObject.address2.length > 100)
+        return "Please enter a valid street address 2 with appropiate length"
+
     if (dataObject.city === "" || dataObject.city.length > 100)
-        return {
-            message: "Please enter a valid city with appropiate length"
-        }
-    if (dataObject.state === "" || dataObject.city.length > 2)
-        return {
-            message: "Please enter a valid state"
-        }
-    if (dataObject.zipCode === "" || dataObject.zipCode.length < 5 || dataObject.zipCode.length > 9)
-        return {
-            message: "Please enter a valid zip code with appropiate length"
-        }
+        return "Please enter a valid city with appropiate length"
+
+    if (dataObject.state === "" || dataObject.state.length > 2)
+        return "Please enter a valid state"
+
+    if (dataObject.zipcode === "" || dataObject.zipcode.length < 5 || dataObject.zipcode.length > 9)
+        return "Please enter a valid zip code with appropiate length"
+
     else
-        return {
-            message: "true"
-        }
+        return "true"
+
 }
+
+module.exports.validateRegisterProfile = validateRegisterProfile;
 app.post('/registerProfile', function(req, res) {
     var data = {
             fullName: req.body.fullName,
@@ -197,8 +201,8 @@ app.post('/registerProfile', function(req, res) {
             email: req.session.user.email
         }
         //validating the profile information of the user
-    var message = validateRegisterProfile(data)
-    if (message.message === "true") { //hello
+    var _message = validateRegisterProfile(data)
+    if (_message === "true") { //hello
         // db.saveInfo(data, function(err)
         // {
         //     if(err)
@@ -211,7 +215,7 @@ app.post('/registerProfile', function(req, res) {
         // });
         res.redirect('/userHome'); // DELETE THIS
     } else {
-        res.render('errorPage', { message: message.message });
+        res.render('errorPage', { message: _message });
     }
 });
 
@@ -261,6 +265,13 @@ app.get('/requestQuote', function(req, res) {
     }
 });
 
+function validQouteRequested(gallons, deliveryDate) {
+    if ((gallons !== "") && (Number(gallons) > 0) && (deliveryDate !== ""))
+        return true;
+    else
+        return false;
+}
+module.exports.validQouteRequested = validQouteRequested;
 app.post('/requestQuote', function(req, res) {
 
     var today = new Date();
@@ -277,7 +288,7 @@ app.post('/requestQuote', function(req, res) {
         price: req.body.price,
         total: Number(req.body.price) * Number(req.body.gallons)
     }
-    if ((data.gallons !== "") && (Number(data.gallons) > 0) && (data.deliveryDate !== ""))
+    if (validQouteRequested(data.gallons, data.deliveryDate))
     // db.requestQuote(data, function(err)
     // {
     //     if(err)
