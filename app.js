@@ -54,7 +54,10 @@ app.post('/login', function(req, res) {
         email: req.body.email,
         password: passwordHash.generate(req.body.password)
     };
-    console.log(data.email)
+    if (!data.email || !data.password){
+        res.render('errorPage', {message:"No Email or Password"});
+        return;
+    }
         //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
     if (functions.validateInput(data.email, data.password)) {
         // this function will just get required info from db (has requested quote, has filled out profile where username=email and pw = hashed pw)
