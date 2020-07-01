@@ -77,4 +77,25 @@ describe('routes tests ', function() {
             .set('Accept', 'application/json')
             .expect(200, done);
     });
+
+    it('requestQuote post route should return 200 with html file', function(done) {
+        var app = supertest(server);
+        app.post('/requestQuote')
+            .set('Accept', 'application/json')
+            .expect(200, done);
+    });
+ 
+    it('userHome get route should return 200 with html file', function(done) {
+        var app = supertest(server);
+        app.get('/userHome')
+            .set('Accept', 'application/json')
+            .expect(200, done);
+    });
+ 
+    it('* get route should return 200 with html file', function(done) {
+        var app = supertest(server);
+        app.get('*')
+            .set('Accept', 'application/json')
+            .expect(200, done);
+    });
 });

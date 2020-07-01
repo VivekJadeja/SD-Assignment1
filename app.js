@@ -52,7 +52,7 @@ app.get('/login', function(req, res) {
 app.post('/login', function(req, res) {
     var data = {
         email: req.body.email,
-        password: passwordHash.generate(req.body.password)
+        password: req.body.password? passwordHash.generate(req.body.password) : undefined
     };
     if (!data.email || !data.password){
         res.render('errorPage', {message:"No Email or Password"});
