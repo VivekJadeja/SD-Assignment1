@@ -1,4 +1,4 @@
-var registerProfileCheck = require('../../app.js');
+var registerProfileCheck = require('../../assets/js/functions.js');
 
 describe("Registering Profile Verification tests ", function() {
     var dataobject = {
