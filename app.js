@@ -6,7 +6,7 @@ var path = require('path');
 var db = require('./server/db.js');
 var bodyParser = require('body-parser');
 var passwordHash = require('password-hash');
-
+var functions = require('./assets/js/functions.js')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -49,28 +49,14 @@ app.get('/login', function(req, res) {
         res.sendFile(path.join(__dirname, 'views/login.html'));
 });
 
-function validateEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
-module.exports.validateEmail = validateEmail;
-
-function validateInput(email, password) {
-    if ((validateEmail(data.email)) && (data.email !== "") && (data.password !== ""))
-        return true;
-    else
-        return false;
-}
-
-module.exports.validateInput = validateInput;
-
 app.post('/login', function(req, res) {
     var data = {
         email: req.body.email,
         password: passwordHash.generate(req.body.password)
     };
-    //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
-    if (validateInput(data.email, data.password)) {
+    console.log(data.email)
+        //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
+    if (functions.validateInput(data.email, data.password)) {
         // this function will just get required info from db (has requested quote, has filled out profile where username=email and pw = hashed pw)
         // db.loginAndGetInfo(data, function(err, info)
         // {
@@ -122,7 +108,7 @@ app.post('/signup', function(req, res) {
         password: passwordHash.generate(req.body.password)
     };
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
-    if (validateInput(data.email, data.password)) {
+    if (functions.validateInput(data.email, data.password)) {
         // db.signUp(data, function(err)
         // {
         //     if(err)
@@ -165,31 +151,7 @@ app.get('/registerProfile', function(req, res) {
     res.sendFile(path.join(__dirname, '/views/registerProfile.html'));
 });
 
-function validateRegisterProfile(dataObject) {
-    if (dataObject.fullName === "" || dataObject.fullName.length > 50)
-        return "Please enter a valid full name with appropiate length"
 
-    if (dataObject.address1 === "" || dataObject.address1.length > 100)
-        return "Please enter a valid street address 1 with appropiate length"
-
-    if (dataObject.address2.length > 100)
-        return "Please enter a valid street address 2 with appropiate length"
-
-    if (dataObject.city === "" || dataObject.city.length > 100)
-        return "Please enter a valid city with appropiate length"
-
-    if (dataObject.state === "" || dataObject.state.length > 2)
-        return "Please enter a valid state"
-
-    if (dataObject.zipcode === "" || dataObject.zipcode.length < 5 || dataObject.zipcode.length > 9)
-        return "Please enter a valid zip code with appropiate length"
-
-    else
-        return "true"
-
-}
-
-module.exports.validateRegisterProfile = validateRegisterProfile;
 app.post('/registerProfile', function(req, res) {
     var data = {
             fullName: req.body.fullName,
@@ -201,7 +163,7 @@ app.post('/registerProfile', function(req, res) {
             email: req.session.user.email
         }
         //validating the profile information of the user
-    var _message = validateRegisterProfile(data)
+    var _message = functions.validateRegisterProfile(data)
     if (_message === "true") { //hello
         // db.saveInfo(data, function(err)
         // {
@@ -265,13 +227,7 @@ app.get('/requestQuote', function(req, res) {
     }
 });
 
-function validQouteRequested(gallons, deliveryDate) {
-    if ((gallons !== "") && (Number(gallons) > 0) && (deliveryDate !== ""))
-        return true;
-    else
-        return false;
-}
-module.exports.validQouteRequested = validQouteRequested;
+
 app.post('/requestQuote', function(req, res) {
 
     var today = new Date();
@@ -288,7 +244,7 @@ app.post('/requestQuote', function(req, res) {
         price: req.body.price,
         total: Number(req.body.price) * Number(req.body.gallons)
     }
-    if (validQouteRequested(data.gallons, data.deliveryDate))
+    if (functions.validQouteRequested(data.gallons, data.deliveryDate))
     // db.requestQuote(data, function(err)
     // {
     //     if(err)
@@ -379,3 +335,4 @@ app.get('*', function(req, res) {
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
+module.exports = app
