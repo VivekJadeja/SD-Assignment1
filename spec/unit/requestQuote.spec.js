@@ -1,4 +1,4 @@
-var validateRequestQouteCheck = require('../../app.js');
+var validateRequestQouteCheck = require('../../assets/js/functions.js');
 describe("Registering Profile Verification tests ", function() {
     var dataobject = {
         gallons: "",
