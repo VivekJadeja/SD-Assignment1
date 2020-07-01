@@ -1,4 +1,4 @@
-var emailCheck = require('../../app.js');
+var emailCheck = require('../../assets/js/functions.js');
 
 describe("Email Verification tests ", function() {
     var email
