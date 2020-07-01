@@ -10,7 +10,7 @@ describe("Email Verification tests ", function() {
         expect(result).toEqual(true);
     });
 
-    it("should return undefined for numberB equals 0", function() {
+    it("should return false if an invalid email is used", function() {
         email = "bbb"
         var result = emailCheck.validateEmail(email);
 
