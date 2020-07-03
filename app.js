@@ -52,13 +52,9 @@ app.get('/login', function(req, res) {
 app.post('/login', function(req, res) {
     var data = {
         email: req.body.email,
-        password: req.body.password? passwordHash.generate(req.body.password) : undefined
+        password: req.body.password ? passwordHash.generate(req.body.password) : undefined
     };
-    if (!data.email || !data.password){
-        res.render('errorPage', {message:"No Email or Password"});
-        return;
-    }
-        //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
+    //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
     if (functions.validateInput(data.email, data.password)) {
         // this function will just get required info from db (has requested quote, has filled out profile where username=email and pw = hashed pw)
         // db.loginAndGetInfo(data, function(err, info)
@@ -85,7 +81,7 @@ app.post('/login', function(req, res) {
 
 app.get('/logout', function(req, res) {
     if (!req.session.user)
-        res.send('errorPage', { message: "You are not logged in" });
+        res.render('errorPage', { message: "You are not logged in" });
     else {
         req.session.destroy(function() {
             res.redirect('/login');
@@ -108,7 +104,7 @@ app.get('/signup', function(req, res) {
 app.post('/signup', function(req, res) {
     var data = {
         email: req.body.email,
-        password: passwordHash.generate(req.body.password)
+        password: req.body.password ? passwordHash.generate(req.body.password) : undefined
     };
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
     if (functions.validateInput(data.email, data.password)) {
@@ -163,7 +159,7 @@ app.post('/registerProfile', function(req, res) {
             city: req.body.city,
             state: req.body.state,
             zipcode: req.body.zipCode,
-            email: req.session.user.email
+            email: req.session.user ? req.session.user.email : undefined
         }
         //validating the profile information of the user
     var _message = functions.validateRegisterProfile(data)
