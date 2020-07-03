@@ -10,6 +10,13 @@ describe('routes tests ', function() {
             .expect(200, done);
     });
 
+    it('emailCheck get route should return false with parameters', function(done) {
+        var app = supertest(server);
+        app.get('/emailCheck/daniel@outlook.com')
+            .set('Accept', 'application/json')
+            .expect(200, done);
+    });
+
     //testing home get route
     it('home get route should return 200 with html file', function(done) {
         var app = supertest(server);
@@ -84,17 +91,17 @@ describe('routes tests ', function() {
             .set('Accept', 'application/json')
             .expect(200, done);
     });
- 
+
     it('userHome get route should return 200 with html file', function(done) {
         var app = supertest(server);
         app.get('/userHome')
             .set('Accept', 'application/json')
             .expect(200, done);
     });
- 
+
     it('* get route should return 200 with html file', function(done) {
         var app = supertest(server);
-        app.get('*')
+        app.get('/*')
             .set('Accept', 'application/json')
             .expect(200, done);
     });

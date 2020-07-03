@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">89.66% </span>
+        <span class="strong">96.55% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>26/29</span>
+        <span class='fraction'>28/29</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">84.85% </span>
+        <span class="strong">88.1% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>28/33</span>
+        <span class='fraction'>37/42</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/4</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">89.66% </span>
+        <span class="strong">96.55% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>26/29</span>
+        <span class='fraction'>28/29</span>
       </div>
     </div>
   </div>
@@ -91,23 +91,23 @@
 46
 47
 48</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">13×</span>
 <span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11×</span>
 <span class="cline-any cline-yes">2×</span>
@@ -143,32 +143,32 @@
 }
 module.exports.validateEmail = validateEmail;
 &nbsp;
-<span class="fstat-no" title="function not covered" >function validateInput(email, password) {</span>
-<span class="cstat-no" title="statement not covered" >    if ((validateEmail(data.email)) &amp;&amp; (data.email !== "") &amp;&amp; (data.password !== ""))</span>
+function validateInput(email, password) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if ((validateEmail(email)) &amp;&amp; (<span class="branch-1 cbranch-no" title="branch not covered" >email !== "")</span> &amp;&amp; (<span class="branch-2 cbranch-no" title="branch not covered" >password !== "")</span> &amp;&amp; (<span class="branch-3 cbranch-no" title="branch not covered" >email)</span> &amp;&amp; (<span class="branch-4 cbranch-no" title="branch not covered" >password)</span>)
 <span class="cstat-no" title="statement not covered" >        return true;</span>
     else
-<span class="cstat-no" title="statement not covered" >        return false;</span>
+        return false;
 }
 &nbsp;
 module.exports.validateInput = validateInput;
 &nbsp;
 function validateRegisterProfile(dataObject) {
-    if (dataObject.fullName === "" || dataObject.fullName.length &gt; 50)
+    if (!dataObject.fullName || dataObject.fullName === "" || dataObject.fullName.length &gt; 50)
         return "Please enter a valid full name with appropiate length"
 &nbsp;
-    if (dataObject.address1 === "" || dataObject.address1.length &gt; 100)
+    if (!dataObject.address1 || dataObject.address1 === "" || dataObject.address1.length &gt; 100)
         return "Please enter a valid street address 1 with appropiate length"
 &nbsp;
-    if (dataObject.address2.length &gt; 100)
+    if (dataObject.address2 &amp;&amp; dataObject.address2.length &gt; 100)
         return "Please enter a valid street address 2 with appropiate length"
 &nbsp;
-    if (dataObject.city === "" || dataObject.city.length &gt; 100)
+    if (!dataObject.city || dataObject.city === "" || dataObject.city.length &gt; 100)
         return "Please enter a valid city with appropiate length"
 &nbsp;
-    if (dataObject.state === "" || dataObject.state.length &gt; 2)
+    if (!dataObject.state || dataObject.state === "" || dataObject.state.length &gt; 2)
         return "Please enter a valid state"
 &nbsp;
-    if (dataObject.zipcode === "" || dataObject.zipcode.length &lt; 5 || dataObject.zipcode.length &gt; 9)
+    if (!dataObject.zipcode || dataObject.zipcode === "" || dataObject.zipcode.length &lt; 5 || dataObject.zipcode.length &gt; 9)
         return "Please enter a valid zip code with appropiate length"
 &nbsp;
     else
@@ -190,7 +190,7 @@ module.exports.validQouteRequested = validQouteRequested;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Jul 01 2020 13:38:20 GMT-0500 (CDT)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 03 2020 11:28:20 GMT-0500 (CDT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
