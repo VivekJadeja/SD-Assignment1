@@ -329,6 +329,11 @@ app.get('/userHome', function(req, res) {
     }
 });
 
+//price module function
+app.get('/price/:data', function(req, res) {
+    // This function will be implemented in assignment 5
+});
+
 app.get('*', function(req, res) {
     res.render('errorPage', { message: "This page doesn't exist." });
 });
