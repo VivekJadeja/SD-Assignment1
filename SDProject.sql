@@ -17,3 +17,9 @@ CREATE TABLE ClientInformation
     FOREIGN KEY(email) REFERENCES UserCredentials(email)
 );
 
+CREATE TABLE UserCredentials
+(
+    email VARCHAR(50) NOT NULL,
+    user_password VARCHAR(100) NOT NULL,
+    PRIMARY KEY(email)
+);
