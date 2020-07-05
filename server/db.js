@@ -14,11 +14,11 @@ signUp = function(data, callback) {
             callback(true);
             return;
         } else {
-            sql = "INSERT INTO UserCredentials VALUES(";
+            sql = "INSERT INTO UserCredentials VALUES('";
             sql += data.email;
-            sql += ",";
+            sql += "', '";
             sql += data.password;
-            sql += ")";
+            sql += "')";
             sql += ";";
             // FINISH THE QUERY ONCE DB IS CREATED
             connection.query(sql, function(err, result) {
