@@ -38,7 +38,7 @@ app.get('/', function(req, res) {
     else if (req.session.user.has_filled_out_profile)
         res.redirect('/userHome');
     else
-        res.redirect('registerProfile');
+        res.redirect('/registerProfile');
 });
 
 // LOGIN MODULE
@@ -57,23 +57,22 @@ app.post('/login', function(req, res) {
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
     if (functions.validateInput(data.email, data.password)) {
         // this function will just get required info from db (has requested quote, has filled out profile where username=email and pw = hashed pw)
-        // db.loginAndGetInfo(data, function(err, info)
-        // {
-        //     if(err)
-        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
-        //     else
-        //     {
-        //         if(!info)
-        //             res.render('errorPage', { message: "The email or password is incorrect"});
-        //         else
-        //         {
-        //             var filledOut = info.fullName == ""? false:true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
-        //             req.session.user = new user(data.email, info.fullName, info.historyExists, filledOut);
-        //             res.redirect('/');
-        //         }
-        //     }
-        // });
-        res.redirect('/'); // DELETE THIS
+        db.loginAndGetInfo(data, function(err, info)
+        {
+            if(err)
+                res.render('errorPage', {message: "Something went wrong. Please try again"});
+            else
+            {
+                if(!info)
+                    res.render('errorPage', { message: "The email or password is incorrect"});
+                else
+                {
+                    var filledOut = info.fullName == undefined? false:true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
+                    req.session.user = new user(data.email, info.fullName, info.historyExists, filledOut);
+                    res.redirect('/');
+                }
+            }
+        });
     } else {
         res.render('errorPage', { message: "The email or password is incorrect" });
     }
@@ -108,14 +107,14 @@ app.post('/signup', function(req, res) {
     };
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
     if (functions.validateInput(data.email, data.password)) {
-        // db.signUp(data, function(err)
-        // {
-        //     if(err)
-        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
-        //     else
-        //         res.redirect('/login');
-        // });
-        res.redirect('/login'); // DELETE THIS ONCE DB FUNCTIONS ARE WRITTEN
+        db.signUp(data, function(err)
+        {
+            if(err)
+                res.render('errorPage', {message: "Something went wrong. Please try again"});
+            else
+                res.redirect('/login');
+        });
+        // res.redirect('/login'); // DELETE THIS ONCE DB FUNCTIONS ARE WRITTEN
     } else {
         res.render('errorPage', { message: "Please enter a vaild email or password" });
     }
@@ -142,12 +141,12 @@ app.get('/emailCheck/:email', function(req, res) {
 
 // PROFILE MANAGEMENT MODULE
 app.get('/registerProfile', function(req, res) {
-    // if(!req.session.user)
-    //     res.render('errorPage', "You need to be logged in");
-    // else if(req.session.user.has_filled_out_profile)
-    //     res.render('errorPage', "You have already provided your information");
-    // else
-    res.sendFile(path.join(__dirname, '/views/registerProfile.html'));
+    if(!req.session.user)
+        res.render('errorPage', "You need to be logged in");
+    else if(req.session.user.has_filled_out_profile)
+        res.render('errorPage', "You have already provided your information");
+    else
+        res.sendFile(path.join(__dirname, '/views/registerProfile.html'));
 });
 
 
@@ -170,6 +169,7 @@ app.post('/registerProfile', function(req, res) {
         //         res.render('errorPage', {message: "Something went wrong. Please try again"});
         //      else
         //      {
+        //         req.session.user.fullName = data.fullName;
         //         req.session.user.has_filled_out_profile = true;
         //         res.redirect('/userHome');
         //      }

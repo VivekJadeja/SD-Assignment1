@@ -122,10 +122,11 @@ loginAndGetInfo = function(data, callback){
             callback(true);
             return;
         } else {
-            let sql = "SELECT UserCredentials.email, ClientInformation.fullName, ClientInformation.historyExists FROM UserCredentials, ClientInformation WHERE UserCredentials.email = ClientInformation.email AND UserCredentials.email = "
-            sql += email;
-            sql+= " AND UserCredentials.password = ";
-            sql += password;
+            let sql = "SELECT UserCredentials.email, ClientInformation.fullName, ClientInformation.historyExists FROM UserCredentials, ClientInformation WHERE UserCredentials.email = ClientInformation.email AND UserCredentials.email = '"
+            sql += data.email;
+            sql+= "' AND UserCredentials.user_password = '";
+            sql += data.password;
+            sql += "';"
             // when a user signs up, we should automatically create and entry into CleintInformation for their email, while everything else
             //is blank.";
             // FINISH THE QUERY ONCE DB IS CREATED
@@ -136,6 +137,7 @@ loginAndGetInfo = function(data, callback){
                     return;
                 } else {
                     callback(false, result);
+                    return;
                 }
             });
         }
