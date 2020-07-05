@@ -15,9 +15,9 @@ signUp = function(data, callback) {
             return;
         } else {
             sql = "INSERT INTO UserCredentials VALUES(";
-            sql += email;
+            sql += data.email;
             sql += ",";
-            sql += password;
+            sql += data.password;
             sql += ")";
             sql += ";";
             // FINISH THE QUERY ONCE DB IS CREATED
