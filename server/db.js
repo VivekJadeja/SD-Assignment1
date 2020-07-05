@@ -2,10 +2,10 @@ var mysql = require('mysql');
 
 //a pool of connections 
 let pool = mysql.createPool({
-    host: '',
+    host: 'oilcompany.c8nymykjozrb.us-east-2.rds.amazonaws.com',
     user: 'admin',
-    password: '',
-    database: ''
+    password: 'alladmin',
+    database: 'OilCompany'
 });
 
 signUp = function(data, callback) {
