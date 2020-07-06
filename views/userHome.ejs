@@ -50,7 +50,7 @@
 
     <div class="container-fluid">
         <h1 style="padding-top: 3%; text-align: center; color: black;">Hello,
-            <%= customer.name %>!</h1>
+            <%= customer.fullName %>!</h1>
 
 
 
@@ -59,7 +59,7 @@
                 <h1 style="color: black;">Your Quote History</h1>
                 <h1 style="color: black;">You haven't requested a quote!</h1>
                 <form action="/requestQuote" method="GET">
-                    <button type="button" class="btn btn-primary" style="font-size: 30px;">Request Quote Now!</button>
+                    <button type="submit" class="btn btn-primary" style="font-size: 30px;">Request Quote Now!</button>
                 </form>
             </div>
             <% } else{ %>
@@ -87,28 +87,28 @@
                                         <%= customer.history[i].gallonsRequested %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].address1 + " " + customer.history[i].address2%>
+                                        <%= customer.history[i].address_1 + " " + customer.history[i].address_2%>
                                     </td>
                                     <td>
                                         <%= customer.history[i].city %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].state %>
+                                        <%= customer.history[i].user_state %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].zipcode %>
+                                        <%= customer.history[i].zipCode %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].quoteDate %>
+                                        <%= customer.history[i].dateRequested %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].dueDate %>
+                                        <%= customer.history[i].deliveryDate %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].price %>
+                                        <%= customer.history[i].pricePerGallon %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].total %>
+                                        <%= customer.history[i].pricePerGallon * customer.history[i].gallonsRequested %>
                                     </td>
                                 </tr>
                                 <% } %>
