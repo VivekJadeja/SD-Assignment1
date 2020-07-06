@@ -42,8 +42,10 @@ getCustomerAddress = function(email, callback) {
             callback(true);
             return;
         } else {
-            let sql = "SELECT address_1, address_2, city, state, zipCode, FROM ClientInformation WHERE email = ";
+            let sql = "SELECT address_1, address_2, city, user_state, zipCode FROM ClientInformation WHERE email = '";
             sql += email;
+            sql += "';";
+
             // FINISH THE QUERY ONCE DB IS CREATED
             connection.query(sql, function(err, result) {
                 connection.release();
@@ -67,7 +69,8 @@ getCustomerHistory = function(email, callback) {
             return;
         } else {
             let sql = "SELECT ClientInformation.*, FuelQoute.* FROM ClientInformation,FuelQoute WHERE (ClientInformation.email = ? AND FuelQoute.email=ClientInformation.email);"
-            let res = sql.replace("?", email);
+            let para = "'" + email + "'";
+            let res = sql.replace("?", para);
             // FINISH THE QUERY ONCE DB IS CREATED
             connection.query(res, function(err, result) {
                 connection.release();
@@ -89,17 +92,17 @@ requestQuote = function(data, callback) {
             callback(true);
             return;
         } else {
-            sql = "INSERT INTO FuelQoute VALUES(";
+            sql = "INSERT INTO FuelQoute VALUES('null','";
             sql += data.email;
-            sql += ",";
+            sql += "','";
             sql += data.requestedDate;
-            sql += ",";
+            sql += "','";
             sql += data.deliveryDate;
-            sql += ",";
+            sql += "','";
             sql += data.gallons;
-            sql += ",";
+            sql += "','";
             sql += data.price;
-            sql += ")";
+            sql += "')";
             sql += ";";
             // FINISH THE QUERY ONCE DB IS CREATED
             connection.query(sql, function(err, result) {
@@ -116,7 +119,7 @@ requestQuote = function(data, callback) {
 }
 module.exports.requestQuote = requestQuote;
 
-loginAndGetInfo = function(data, callback){
+loginAndGetInfo = function(data, callback) {
     pool.getConnection(function(err, connection) {
         if (err) {
             callback(true);
@@ -124,12 +127,12 @@ loginAndGetInfo = function(data, callback){
         } else {
             let sql = "SELECT UserCredentials.email, ClientInformation.fullName, ClientInformation.historyExists FROM UserCredentials, ClientInformation WHERE UserCredentials.email = ClientInformation.email AND UserCredentials.email = '"
             sql += data.email;
-            sql+= "' AND UserCredentials.user_password = '";
-            sql += data.password;
+            /* sql += "' AND UserCredentials.user_password = '";
+            sql += data.password; */
             sql += "';"
-            // when a user signs up, we should automatically create and entry into CleintInformation for their email, while everything else
-            //is blank.";
-            // FINISH THE QUERY ONCE DB IS CREATED
+                // when a user signs up, we should automatically create and entry into CleintInformation for their email, while everything else
+                //is blank.";
+                // FINISH THE QUERY ONCE DB IS CREATED
             connection.query(sql, function(err, result) {
                 connection.release(); //release connection after it is used in order to not keep it open
                 if (err) {
@@ -145,16 +148,17 @@ loginAndGetInfo = function(data, callback){
 }
 module.exports.loginAndGetInfo = loginAndGetInfo;
 
-emailCheck = function(email, callback){
+emailCheck = function(email, callback) {
     pool.getConnection(function(err, connection) {
         if (err) {
             callback(true);
             return;
         } else {
-            let sql = "SELECT COUNT(*) FROM UserCredentials WHERE email = "
+            let sql = "SELECT COUNT(*) FROM UserCredentials WHERE email = '"
             sql += email;
-            // we are checking whether or not an email is being used
-            // FINISH THE QUERY ONCE DB IS CREATED
+            sql += "';"
+                // we are checking whether or not an email is being used
+                // FINISH THE QUERY ONCE DB IS CREATED
             connection.query(sql, function(err, result) {
                 connection.release(); //release connection after it is used in order to not keep it open
                 if (err) {
@@ -169,28 +173,31 @@ emailCheck = function(email, callback){
 }
 module.exports.emailCheck = emailCheck;
 
-saveInfo = function(data, callback){
+saveInfo = function(data, callback) {
     pool.getConnection(function(err, connection) {
         if (err) {
             callback(true);
             return;
-        } else {//hello
-            let sql = "UPDATE ClientInformation SET fullName = ";
+        } else { //hello
+            let sql = "UPDATE ClientInformation SET fullName ='";
             sql += data.fullName;
-            sql += ", address_1 = ";
+            sql += "', address_1 = '";
             sql += data.address1;
-            sql += ", address_2 = ";
-            sql += data.address2;
-            sql += ", city = ";
+            if (data.address2 !== "") {
+                sql += "', address_2 = '";
+                sql += data.address2;
+            }
+            sql += "', city = '";
             sql += data.city;
-            sql += ", state = ";
+            sql += "', user_state = '";
             sql += data.state;
-            sql += ", zipCode = ";
+            sql += "', zipCode = '";
             sql += data.zipcode;
-            sql += ", historyExits = 0";
-            sql += "WHERE email = ";
+            sql += "', historyExists = '0' ";
+            sql += "WHERE email = '";
             sql += data.email;
-            // FINISH THE QUERY ONCE DB IS CREATED
+            sql += "';"
+                // FINISH THE QUERY ONCE DB IS CREATED
             connection.query(sql, function(err, result) {
                 connection.release(); //release connection after it is used in order to not keep it open
                 if (err) {
