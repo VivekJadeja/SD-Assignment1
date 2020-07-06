@@ -57,17 +57,14 @@ app.post('/login', function(req, res) {
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
     if (functions.validateInput(data.email, data.password)) {
         // this function will just get required info from db (has requested quote, has filled out profile where username=email and pw = hashed pw)
-        db.loginAndGetInfo(data, function(err, info)
-        {
-            if(err)
-                res.render('errorPage', {message: "Something went wrong. Please try again"});
-            else
-            {
-                if(!info)
-                    res.render('errorPage', { message: "The email or password is incorrect"});
-                else
-                {
-                    var filledOut = info.fullName == undefined? false:true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
+        db.loginAndGetInfo(data, function(err, info) {
+            if (err)
+                res.render('errorPage', { message: "Something went wrong. Please try again" });
+            else {
+                if (!info)
+                    res.render('errorPage', { message: "The email or password is incorrect" });
+                else {
+                    var filledOut = info[0].fullName === undefined ? false : true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
                     req.session.user = new user(data.email, info.fullName, info.historyExists, filledOut);
                     res.redirect('/');
                 }
@@ -107,14 +104,12 @@ app.post('/signup', function(req, res) {
     };
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
     if (functions.validateInput(data.email, data.password)) {
-        db.signUp(data, function(err)
-        {
-            if(err)
-                res.render('errorPage', {message: "Something went wrong. Please try again"});
+        db.signUp(data, function(err) {
+            if (err)
+                res.render('errorPage', { message: "Something went wrong. Please try again" });
             else
                 res.redirect('/login');
         });
-        // res.redirect('/login'); // DELETE THIS ONCE DB FUNCTIONS ARE WRITTEN
     } else {
         res.render('errorPage', { message: "Please enter a vaild email or password" });
     }
@@ -123,33 +118,29 @@ app.post('/signup', function(req, res) {
 // checks if email exists when signing up
 app.get('/emailCheck/:email', function(req, res) {
     //enforcing validation for email 
-    /*     if (validateEmail(req.params.email)) {
-            // db.emailCheck(req.params.email, function(err, exists){
-            //     if(err)
-            //         res.json({exists: true}); // might need to discuss what happens when connection to db fails
-            //     else
-            //         res.json({exists : exists});
-            // });
-        } else {
-            res.render('errorPage', { message: "Please enter a vaild email or password" });
-        } */
-    if (req.params.email === "daniel.evans17@outlook.com")
-        res.json({ exists: true });
-    else
-        res.json({ exists: false });
+    if (functions.validateEmail(req.params.email)) {
+        db.emailCheck(req.params.email, function(err, exists) {
+            if (err)
+                res.json({ exists: true }); // might need to discuss what happens when connection to db fails
+            else
+                res.json({ exists: exists });
+        });
+    } else {
+        res.render('errorPage', { message: "Please enter a vaild email or password" });
+    }
 });
 
 // PROFILE MANAGEMENT MODULE
 app.get('/registerProfile', function(req, res) {
-    if(!req.session.user)
+    if (!req.session.user)
         res.render('errorPage', "You need to be logged in");
-    else if(req.session.user.has_filled_out_profile)
+    else if (req.session.user.has_filled_out_profile)
         res.render('errorPage', "You have already provided your information");
     else
         res.sendFile(path.join(__dirname, '/views/registerProfile.html'));
 });
 
-
+//not working
 app.post('/registerProfile', function(req, res) {
     var data = {
             fullName: req.body.fullName,
@@ -163,18 +154,15 @@ app.post('/registerProfile', function(req, res) {
         //validating the profile information of the user
     var _message = functions.validateRegisterProfile(data)
     if (_message === "true") { //hello
-        // db.saveInfo(data, function(err)
-        // {
-        //     if(err)
-        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
-        //      else
-        //      {
-        //         req.session.user.fullName = data.fullName;
-        //         req.session.user.has_filled_out_profile = true;
-        //         res.redirect('/userHome');
-        //      }
-        // });
-        res.redirect('/userHome'); // DELETE THIS
+        db.saveInfo(data, function(err) {
+            if (err)
+                res.render('errorPage', { message: "Something went wrong. Please try again" });
+            else {
+                req.session.user.fullName = data.fullName;
+                req.session.user.has_filled_out_profile = true;
+                res.redirect('/userHome');
+            }
+        });
     } else {
         res.render('errorPage', { message: _message });
     }
@@ -183,10 +171,9 @@ app.post('/registerProfile', function(req, res) {
 
 // FUEL QUOTE/ PRICING MODULE
 app.get('/requestQuote', function(req, res) {
-    // if(!req.session.user)
-    //     res.render('errorPage', {message: "You need to be logged in"});
-    // else
-    {
+    if (!req.session.user)
+        res.render('errorPage', { message: "You need to be logged in" });
+    else {
         // get this data from db later
         var cuDate = new Date();
         var date = cuDate.getFullYear() + "-";
@@ -197,135 +184,122 @@ app.get('/requestQuote', function(req, res) {
         if (day.toString().length == 1)
             day = '0' + day;
         date += month + "-" + day;
-        var customer = {
-                address1: "1234 Main St",
-                address2: "#100",
-                city: "Houston",
-                state: "TX",
-                zipcode: "77089",
-                cuDate: date
+        db.getCustomerAddress(req.session.user.email, function(err, info) {
+            if (err)
+                res.render('errorPage', { message: "Something went wrong. Please try again" });
+            else {
+                var customer = {
+                    address1: info[0].address_1,
+                    address2: info[0].address_2,
+                    city: info[0].city,
+                    state: info[0].user_state,
+                    zipcode: info[0].zipCode,
+                    cuDate: date
+                }
+                res.render('quoteRequest', { customer: customer });
             }
-            // db.getCustomerAddrress(req.session.user.email, function(err, info)
-            // {
-            //     if(err)
-            //         res.render('errorPage', {message: "Something went wrong. Please try again"});
-            //     else
-            //     {
-            //         var customer = {
-            //             address1 : info.address1,
-            //             address2 : info.address2,
-            //             city : info.city,
-            //             state : info.state,
-            //             zipcode : info.zipCode,
-            //             cuDate : date
-            //         }
-            //         res.render('quoteRequest', {customer:customer});
-            //     }
-            // });
-        res.render('quoteRequest', { customer: customer });
+        });
     }
 });
 
 
 app.post('/requestQuote', function(req, res) {
 
-    var today = new Date();
-    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    var cuDate = new Date();
+    var date = cuDate.getFullYear() + "-";
+    var month = cuDate.getMonth() + 1;
+    if (month.toString().length === 1)
+        month = '0' + month;
+    var day = cuDate.getDate();
+    if (day.toString().length == 1)
+        day = '0' + day;
+    date += month + "-" + day;
     var data = {
+        email: req.session.user.email,
         gallons: req.body.gallons,
         deliveryDate: req.body.date,
-        requestedDate: data,
-        address1: req.body.address1,
-        address2: req.body.address2,
-        city: req.body.city,
-        state: req.body.state,
-        zipcode: req.body.zipcode,
+        requestedDate: date,
         price: req.body.price,
         total: Number(req.body.price) * Number(req.body.gallons)
     }
-    if (functions.validQouteRequested(data.gallons, data.deliveryDate))
-    // db.requestQuote(data, function(err)
-    // {
-    //     if(err)
-    //         res.render('errorPage', {message: "Something went wrong. Please try again"});
-    //     else
-    //     {
-    //         req.session.user.has_requested_quote = true;
-    //         res.redirect('/userHome');
-    //     }
-    // });
-        res.redirect('/userHome'); // DELETE LATER
-    else {
+    if (functions.validQouteRequested(data.gallons, data.deliveryDate)) {
+        db.requestQuote(data, function(err) {
+            if (err)
+                res.render('errorPage', { message: "Something went wrong. Please try again" });
+            else {
+                req.session.user.has_requested_quote = true;
+                res.redirect('/userHome');
+            }
+        });
+    } else {
         res.render('errorPage', { message: "Please enter all fields" });
     }
 });
 
 // QUOTE HISTORY MODULE
 app.get('/userHome', function(req, res) {
-    // if(!req.session.user)
-    //     res.render('errorPage', {message: "You need to be logged in"});
-    // else if(!req.session.user.has_filled_out_profile)
-    //     res.render('errorPage', {message: "You need to be fill out your profile info"});
-    // else
-    {
+    if (!req.session.user)
+        res.render('errorPage', { message: "You need to be logged in" });
+    else if (!req.session.user.has_filled_out_profile)
+        res.render('errorPage', { message: "You need to be fill out your profile info" });
+    else {
         // get this data from db later
         // only for users 
-        // db.getCustomerHistory(req.session.user.email, function(err, history)
-        // {   
-        //     if(err)
-        //         res.render('errorPage', {message: "Something went wrong. Please try again"});
-        //     else
-        //     {
-        //         var customer = {
-        //             name : req.session.user.f_name,
-        //             history : history
-        //         }
-        //         res.render('userHome.ejs', {customer: customer});
-        //     }
-        // });
-        var history = [{
-                gallonsRequested: 5,
-                quoteDate: "06/16/2020",
-                dueDate: "06/26/2020",
-                address1: "1234 Main St.",
-                address2: "#100",
-                city: "Houston",
-                state: "TX",
-                zipcode: 77089,
-                price: 5,
-                total: 25
-            },
-            {
-                gallonsRequested: 5,
-                quoteDate: "06/16/2020",
-                dueDate: "06/26/2020",
-                address1: "1234 Main St.",
-                address2: "#100",
-                city: "Houston",
-                state: "TX",
-                zipcode: 77089,
-                price: 5,
-                total: 25
-            },
-            {
-                gallonsRequested: 5,
-                quoteDate: "06/16/2020",
-                dueDate: "06/26/2020",
-                address1: "1234 Main St.",
-                address2: "#100",
-                city: "Houston",
-                state: "TX",
-                zipcode: 77089,
-                price: 5,
-                total: 25
+        db.getCustomerHistory(req.session.user.email, function(err, history) {
+            if (err)
+                res.render('errorPage', { message: "Something went wrong. Please try again" });
+            else {
+                var customer = {
+                    name: req.session.user.fullName,
+                    history: history
+                }
+                res.render('userHome.ejs', { customer: customer });
             }
-        ];
+        });
+        /*         var history = [{
+                        gallonsRequested: 5,
+                        quoteDate: "06/16/2020",
+                        dueDate: "06/26/2020",
+                        address1: "1234 Main St.",
+                        address2: "#100",
+                        city: "Houston",
+                        state: "TX",
+                        zipcode: 77089,
+                        price: 5,
+                        total: 25
+                    },
+                    {
+                        gallonsRequested: 5,
+                        quoteDate: "06/16/2020",
+                        dueDate: "06/26/2020",
+                        address1: "1234 Main St.",
+                        address2: "#100",
+                        city: "Houston",
+                        state: "TX",
+                        zipcode: 77089,
+                        price: 5,
+                        total: 25
+                    },
+                    {
+                        gallonsRequested: 5,
+                        quoteDate: "06/16/2020",
+                        dueDate: "06/26/2020",
+                        address1: "1234 Main St.",
+                        address2: "#100",
+                        city: "Houston",
+                        state: "TX",
+                        zipcode: 77089,
+                        price: 5,
+                        total: 25
+                    }
+                ];
 
-        var customer = {
-            name: "Daniel",
-            history: history
-        }
-        res.render('userHome.ejs', { customer: customer }); // DELETE THIS LATER
+                var customer = {
+                    name: "Daniel",
+                    history: history
+                }
+                res.render('userHome.ejs', { customer: customer }); // DELETE THIS LATER */
     }
 });
 
