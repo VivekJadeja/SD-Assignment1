@@ -52,7 +52,7 @@ app.get('/login', function(req, res) {
 app.post('/login', function(req, res) {
     var data = {
         email: req.body.email,
-        password: req.body.password ? passwordHash.generate(req.body.password) : undefined
+        password: req.body.password ? req.body.password : undefined
     };
     //enforcing validation for email and password, making sure if they are empty or not and if the email is in right format
     if (functions.validateInput(data.email, data.password)) {
@@ -61,12 +61,19 @@ app.post('/login', function(req, res) {
             if (err)
                 res.render('errorPage', { message: "Something went wrong. Please try again" });
             else {
-                if (!info)
+                if (!info || !info.length)
                     res.render('errorPage', { message: "The email or password is incorrect" });
                 else {
-                    var filledOut = info[0].fullName === undefined ? false : true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
-                    req.session.user = new user(data.email, info.fullName, info.historyExists, filledOut);
-                    res.redirect('/');
+                    if(passwordHash.verify(data.password, info[0].user_password))
+                    {
+                        var filledOut = !info[0].fullName? false : true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
+                        req.session.user = new user(data.email, info[0].fullName, info[0].historyExists, filledOut);
+                        res.redirect('/');
+                    }
+                    else
+                    {
+                        res.render('errorPage', { message: "The email or password is incorrect" });
+                    }
                 }
             }
         });
@@ -118,16 +125,12 @@ app.post('/signup', function(req, res) {
 // checks if email exists when signing up
 app.get('/emailCheck/:email', function(req, res) {
     //enforcing validation for email 
-    if (functions.validateEmail(req.params.email)) {
         db.emailCheck(req.params.email, function(err, exists) {
             if (err)
-                res.json({ exists: true }); // might need to discuss what happens when connection to db fails
+                res.json({ exists: "error" }); // might need to discuss what happens when connection to db fails
             else
-                res.json({ exists: exists });
+                res.json({ exists: exists[0].result });
         });
-    } else {
-        res.render('errorPage', { message: "Please enter a vaild email or password" });
-    }
 });
 
 // PROFILE MANAGEMENT MODULE
@@ -158,7 +161,7 @@ app.post('/registerProfile', function(req, res) {
             if (err)
                 res.render('errorPage', { message: "Something went wrong. Please try again" });
             else {
-                req.session.user.fullName = data.fullName;
+                req.session.user.f_name = data.fullName;
                 req.session.user.has_filled_out_profile = true;
                 res.redirect('/userHome');
             }
@@ -251,55 +254,12 @@ app.get('/userHome', function(req, res) {
                 res.render('errorPage', { message: "Something went wrong. Please try again" });
             else {
                 var customer = {
-                    name: req.session.user.fullName,
+                    name: req.session.user.f_name,
                     history: history
                 }
                 res.render('userHome.ejs', { customer: customer });
             }
         });
-        /*         var history = [{
-                        gallonsRequested: 5,
-                        quoteDate: "06/16/2020",
-                        dueDate: "06/26/2020",
-                        address1: "1234 Main St.",
-                        address2: "#100",
-                        city: "Houston",
-                        state: "TX",
-                        zipcode: 77089,
-                        price: 5,
-                        total: 25
-                    },
-                    {
-                        gallonsRequested: 5,
-                        quoteDate: "06/16/2020",
-                        dueDate: "06/26/2020",
-                        address1: "1234 Main St.",
-                        address2: "#100",
-                        city: "Houston",
-                        state: "TX",
-                        zipcode: 77089,
-                        price: 5,
-                        total: 25
-                    },
-                    {
-                        gallonsRequested: 5,
-                        quoteDate: "06/16/2020",
-                        dueDate: "06/26/2020",
-                        address1: "1234 Main St.",
-                        address2: "#100",
-                        city: "Houston",
-                        state: "TX",
-                        zipcode: 77089,
-                        price: 5,
-                        total: 25
-                    }
-                ];
-
-                var customer = {
-                    name: "Daniel",
-                    history: history
-                }
-                res.render('userHome.ejs', { customer: customer }); // DELETE THIS LATER */
     }
 });
 

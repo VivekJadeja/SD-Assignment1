@@ -19,14 +19,14 @@ CREATE TABLE ClientInformation
     city VARCHAR(100),
     user_state VARCHAR(2),
     zipCode VARCHAR(9),
-    historyExists int(1),
+    historyExists BOOL,
     PRIMARY KEY(email),
     FOREIGN KEY(email) REFERENCES UserCredentials(email)
 );
 
 CREATE TABLE FuelQoute
 (
-    quoteID INT NOT NULL AUTO INCREMENT,
+    quoteID INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(50) NOT NULL,
     dateRequested TIMESTAMP NOT NULL DEFAULT NOW(),
     deliveryDate DATE NOT NULL,

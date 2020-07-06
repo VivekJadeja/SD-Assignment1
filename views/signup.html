@@ -96,11 +96,14 @@
         let email = document.getElementById("email").value;
         checkEmail(email).then(function(data)
         {
+          console.log(data);
           let result = "This email is ";
-          if(data.exists)
+          if(data.exists=="1")
             result += "taken"
-          else
+          else if(data.exists=="0")
             result += "free";
+          else if(data.exists=="error")
+            result = "An error occured. Try to enter the email again.";
           document.getElementById("ajaxRes").innerHTML = result;
         });
       }

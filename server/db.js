@@ -125,10 +125,8 @@ loginAndGetInfo = function(data, callback) {
             callback(true);
             return;
         } else {
-            let sql = "SELECT UserCredentials.email, ClientInformation.fullName, ClientInformation.historyExists FROM UserCredentials, ClientInformation WHERE UserCredentials.email = ClientInformation.email AND UserCredentials.email = '"
+            let sql = "SELECT UserCredentials.email, UserCredentials.user_password, ClientInformation.fullName, ClientInformation.historyExists FROM UserCredentials, ClientInformation WHERE UserCredentials.email = ClientInformation.email AND UserCredentials.email = '"
             sql += data.email;
-            /* sql += "' AND UserCredentials.user_password = '";
-            sql += data.password; */
             sql += "';"
                 // when a user signs up, we should automatically create and entry into CleintInformation for their email, while everything else
                 //is blank.";
@@ -154,7 +152,7 @@ emailCheck = function(email, callback) {
             callback(true);
             return;
         } else {
-            let sql = "SELECT COUNT(*) FROM UserCredentials WHERE email = '"
+            let sql = "SELECT COUNT(*) AS result FROM UserCredentials WHERE email = '"
             sql += email;
             sql += "';"
                 // we are checking whether or not an email is being used
