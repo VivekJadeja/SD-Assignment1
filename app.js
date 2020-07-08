@@ -64,14 +64,11 @@ app.post('/login', function(req, res) {
                 if (!info || !info.length)
                     res.render('errorPage', { message: "The email or password is incorrect" });
                 else {
-                    if(passwordHash.verify(data.password, info[0].user_password))
-                    {
-                        var filledOut = !info[0].fullName? false : true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
+                    if (passwordHash.verify(data.password, info[0].user_password)) {
+                        var filledOut = !info[0].fullName ? false : true; //if info.FullName is equal to blank string, filledOut is false, if not, then true
                         req.session.user = new user(data.email, info[0].fullName, info[0].historyExists, filledOut);
                         res.redirect('/');
-                    }
-                    else
-                    {
+                    } else {
                         res.render('errorPage', { message: "The email or password is incorrect" });
                     }
                 }
@@ -125,12 +122,12 @@ app.post('/signup', function(req, res) {
 // checks if email exists when signing up
 app.get('/emailCheck/:email', function(req, res) {
     //enforcing validation for email 
-        db.emailCheck(req.params.email, function(err, exists) {
-            if (err)
-                res.json({ exists: "error" }); // might need to discuss what happens when connection to db fails
-            else
-                res.json({ exists: exists[0].result });
-        });
+    db.emailCheck(req.params.email, function(err, exists) {
+        if (err)
+            res.json({ exists: "error" }); // might need to discuss what happens when connection to db fails
+        else
+            res.json({ exists: exists[0].result });
+    });
 });
 
 // PROFILE MANAGEMENT MODULE
