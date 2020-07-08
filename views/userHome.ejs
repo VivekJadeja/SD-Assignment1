@@ -99,10 +99,10 @@
                                         <%= customer.history[i].zipCode %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].dateRequested %>
+                                        <%= String(customer.history[i].dateRequested).substr(4, 11) %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].deliveryDate %>
+                                        <%= String(customer.history[i].deliveryDate).substr(4, 11) %>
                                     </td>
                                     <td>
                                         <%= customer.history[i].pricePerGallon %>

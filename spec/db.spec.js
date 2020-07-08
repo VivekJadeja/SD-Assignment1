@@ -107,3 +107,73 @@ describe("Post Login ", function() {
         });
     });
 });
+
+describe("Email Check ", function() {
+    var email = "new1234@gmail.com"
+    it("Should return false if valid email", function() {
+        dbFunctions.emailCheck(email, function(err) {
+            if (err)
+                expect(err).toEqual(true);
+            else
+                expect(err).toEqual(false);
+        });
+    });
+
+    email = "1@gmail.com";
+    it("Should return true because invalid email", function() {
+        dbFunctions.emailCheck(email, function(err) {
+            if (err)
+                expect(err).toEqual(true);
+            else
+                expect(err).toEqual(false);
+        });
+    });
+});
+
+describe("Request Quote ", function() {
+    var data = {
+        email: "johndoe@gmail.com",
+        requestedDate: "07-07-2020",
+        deliveryDate: "07-08-2020",
+        gallons: "2",
+        price: "3.25"
+    };
+    it("Should return false if entered fields are valid", function() {
+        dbFunctions.requestQuote(data, function(err) {
+            if (err)
+                expect(err).toEqual(true);
+            else
+                expect(err).toEqual(false);
+        });
+    });
+    data.email = "5@gmail.com"
+    it("Should return true because entered fields are invalid", function() {
+        dbFunctions.requestQuote(data, function(err) {
+            if (err)
+                expect(err).toEqual(true);
+            else
+                expect(err).toEqual(false);
+        });
+    });
+});
+
+describe("Get Customer History ", function() {
+    var email = "johndoe@gmail.com"
+    it("Should return false if email is valid", function() {
+        dbFunctions.getCustomerHistory(email, function(err, info) {
+            if (err)
+                expect(err).toEqual(true);
+            else
+                expect(err).toEqual(false);
+        });
+    });
+    email = "5@gmail.com"
+    it("Should return true because email is invalid", function() {
+        dbFunctions.getCustomerHistory(email, function(err, info) {
+            if (err)
+                expect(err).toEqual(true);
+            else
+                expect(err).toEqual(false);
+        });
+    });
+});
