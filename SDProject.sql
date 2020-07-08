@@ -40,3 +40,7 @@ CREATE TABLE FuelQoute
 CREATE TRIGGER insertIntoClientInfo AFTER INSERT ON UserCredentials
  FOR EACH ROW
 	INSERT INTO ClientInformation(email) VALUES(NEW.email);
+
+CREATE TRIGGER updateHistoryExists AFTER INSERT ON FuelQoute
+FOR EACH ROW
+	UPDATE ClientInformation SET HistoryExists=1 WHERE ClientInformation.email=NEW.email;
