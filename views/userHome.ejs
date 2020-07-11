@@ -87,7 +87,7 @@
                                         <%= customer.history[i].gallonsRequested %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].address_1 + " " + customer.history[i].address_2%>
+                                        <%= customer.history[i].address_1 + (customer.history[i].address_2? ', '+customer.history[i].address_2: "")%>
                                     </td>
                                     <td>
                                         <%= customer.history[i].city %>
@@ -105,10 +105,10 @@
                                         <%= String(customer.history[i].deliveryDate).substr(4, 11) %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].pricePerGallon %>
+                                        <%= '$ '+customer.history[i].pricePerGallon %>
                                     </td>
                                     <td>
-                                        <%= customer.history[i].pricePerGallon * customer.history[i].gallonsRequested %>
+                                        <%= '$ '+customer.history[i].pricePerGallon * customer.history[i].gallonsRequested %>
                                     </td>
                                 </tr>
                                 <% } %>
