@@ -262,7 +262,16 @@ app.get('/userHome', function(req, res) {
 
 //price module function
 app.get('/price/:data', function(req, res) {
-    // This function will be implemented in assignment 5
+    let gallons = req.params.gallons;
+    let state = req.params.state;
+    let history = req.session.user.has_requested_quote;
+    let currentPrice = 1.5;
+    let locationFactor = state === "TX" ? 0.02 : 0.04;
+    let historyFactor = history == 1 ? .01 : 0;
+    let gallonsFactor = gallons > 1000 ? 0.02 : 0.03;
+    let margin = currentPrice * (locationFactor - historyFactor + gallonsFactor + 0.1);
+    let price = currentPrice + margin;
+    res.json({ price: price });
 });
 
 app.get('*', function(req, res) {
