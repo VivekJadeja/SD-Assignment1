@@ -107,9 +107,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script>
-        document.getElementById("gallons").onchange = function()
+        async function getPrice(gallons, state) {
+        let response = await fetch(`http://localhost:3000/price/${gallons}/${state}`);
+        let data = await response.json();
+        return data;
+      }
+ 
+        showPrice = function()
         {
-            document.getElementById("total").value = document.getElementById("gallons").value * document.getElementById("price").value;
+            let gallons = document.getElementById("gallons").value;
+            let state = document.getElementById("state").value;
+            getPrice(gallons, state).then(function(data)
+            {
+                document.getElementById("submitQuote").disabled = false;
+                document.getElementById("price").value = '$ '+data.price;
+                let total= data.price * gallons;
+                document.getElementById("total").value = '$ '+total;
+            });
         }
     </script>
 
