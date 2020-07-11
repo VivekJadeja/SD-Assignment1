@@ -78,7 +78,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputState">State</label>
-                            <input id="inputState" name="state" class="form-control" value="<%= customer.state %>" readonly>
+                            <input id="state" name="state" class="form-control" value="<%= customer.state %>" readonly>
 
                         </div>
                         <div class="form-group col-md-2">
@@ -88,14 +88,15 @@
                     </div>
                     <div class="form-group">
                         <label for="price">Suggested price per gallon</label>
-                        <input class="form-control" id="price" name="price" type="text" placeholder="$5" value="5" readonly>
+                        <input class="form-control" id="price" name="price" type="text" placeholder="Use Get Quote button" value="" readonly>
                     </div>
                     <div class="form-group">
                         <label for="total">Total amount due</label>
-                        <input class="form-control" type="text" id="total" name="total" placeholder="$elect gallons" readonly>
+                        <input class="form-control" type="text" id="total" name="total" placeholder="Use Get Quote button" value="" readonly>
                     </div>
+                    <button type="button" style="margin-bottom: 10px;" onclick="showPrice()" id="getQuote" class="btn btn-primary btn-lg btn-block" disabled>Get Quote</button>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                        <button id="submitQuote" type="submit" class="btn btn-primary btn-lg btn-block" disabled>Submit</button>
                     </div>
                 </form>
             </div>

@@ -220,8 +220,7 @@ app.post('/requestQuote', function(req, res) {
         gallons: req.body.gallons,
         deliveryDate: req.body.date,
         requestedDate: date,
-        price: req.body.price,
-        total: Number(req.body.price) * Number(req.body.gallons)
+        price: req.body.price.substr(2, req.body.price.length-2)
     }
     if (functions.validQouteRequested(data.gallons, data.deliveryDate)) {
         db.requestQuote(data, function(err) {
@@ -261,7 +260,7 @@ app.get('/userHome', function(req, res) {
 });
 
 //price module function
-app.get('/price/:data', function(req, res) {
+app.get('/price/:gallons/:state', function(req, res) {
     let gallons = req.params.gallons;
     let state = req.params.state;
     let history = req.session.user.has_requested_quote;
