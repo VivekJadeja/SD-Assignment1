@@ -220,7 +220,7 @@ app.post('/requestQuote', function(req, res) {
         gallons: req.body.gallons,
         deliveryDate: req.body.date,
         requestedDate: date,
-        price: req.body.price.substr(2, req.body.price.length-2)
+        price: req.body.price.substr(2, req.body.price.length - 2)
     }
     if (functions.validQouteRequested(data.gallons, data.deliveryDate)) {
         db.requestQuote(data, function(err) {
@@ -263,7 +263,7 @@ app.get('/userHome', function(req, res) {
 app.get('/price/:gallons/:state', function(req, res) {
     let gallons = req.params.gallons;
     let state = req.params.state;
-    let history = req.session.user.has_requested_quote;
+    let history = req.session.user ? req.session.user.has_requested_quote : 0;
     let currentPrice = 1.5;
     let locationFactor = state === "TX" ? 0.02 : 0.04;
     let historyFactor = history == 1 ? .01 : 0;
