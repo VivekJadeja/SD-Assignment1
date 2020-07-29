@@ -177,6 +177,7 @@ saveInfo = function(data, callback) {
             callback(true);
             return;
         } else { //hello
+            let history = data.historyExists==1? "1":"0";
             let sql = "UPDATE ClientInformation SET fullName ='";
             sql += data.fullName;
             sql += "', address_1 = '";
@@ -191,8 +192,9 @@ saveInfo = function(data, callback) {
             sql += data.state;
             sql += "', zipCode = '";
             sql += data.zipcode;
-            sql += "', historyExists = '0' ";
-            sql += "WHERE email = '";
+            sql += "', historyExists = '";
+            sql +=history;
+            sql += " 'WHERE email = '";
             sql += data.email;
             sql += "';"
                 // FINISH THE QUERY ONCE DB IS CREATED
@@ -209,3 +211,29 @@ saveInfo = function(data, callback) {
     });
 }
 module.exports.saveInfo = saveInfo;
+
+getProfileInfo = function(email, callback)
+{
+    pool.getConnection(function(err, connection) {
+        if (err) {
+            callback(true);
+            return;
+        } else {
+            let sql = "SELECT * FROM ClientInformation WHERE email = '"
+            sql += email;
+            sql += "';"
+                // we are checking whether or not an email is being used
+                // FINISH THE QUERY ONCE DB IS CREATED
+            connection.query(sql, function(err, result) {
+                connection.release(); //release connection after it is used in order to not keep it open
+                if (err) {
+                    callback(true);
+                    return;
+                } else {
+                    callback(false, result);
+                }
+            });
+        }
+    });
+}
+module.exports.getProfileInfo = getProfileInfo;

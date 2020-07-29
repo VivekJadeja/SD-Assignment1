@@ -135,12 +135,23 @@ app.get('/registerProfile', function(req, res) {
     if (!req.session.user)
         res.render('errorPage', "You need to be logged in");
     else if (req.session.user.has_filled_out_profile)
-        res.render('errorPage', "You have already provided your information");
+    {
+        let email= req.session.user.email;
+        db.getProfileInfo(email, function(err, info)
+        {
+            if(err)
+                res.render('errorPage', "Something went wrong. Try again.");
+            else
+            {
+                res.render('updateProfile', {info: info[0]});
+            }
+        });
+    }
     else
         res.sendFile(path.join(__dirname, '/views/registerProfile.html'));
 });
 
-//not working
+
 app.post('/registerProfile', function(req, res) {
     var data = {
             fullName: req.body.fullName,
@@ -149,7 +160,8 @@ app.post('/registerProfile', function(req, res) {
             city: req.body.city,
             state: req.body.state,
             zipcode: req.body.zipCode,
-            email: req.session.user ? req.session.user.email : undefined
+            email: req.session.user ? req.session.user.email : undefined,
+            historyExists: req.session.user? req.session.user.has_requested_quote: 0
         }
         //validating the profile information of the user
     var _message = functions.validateRegisterProfile(data)
@@ -161,6 +173,33 @@ app.post('/registerProfile', function(req, res) {
                 req.session.user.f_name = data.fullName;
                 req.session.user.has_filled_out_profile = true;
                 res.redirect('/userHome');
+            }
+        });
+    } else {
+        res.render('errorPage', { message: _message });
+    }
+});
+
+app.post('/updateProfile', function(req, res) {
+    var data = {
+            fullName: req.body.fullName,
+            address1: req.body.streetAddress1,
+            address2: req.body.streetAddress2,
+            city: req.body.city,
+            state: req.body.state,
+            zipcode: req.body.zipCode,
+            email: req.session.user ? req.session.user.email : undefined,
+            historyExists: req.session.user? req.session.user.has_requested_quote: 0
+        }
+        //validating the profile information of the user
+    var _message = functions.validateRegisterProfile(data)
+    if (_message === "true") { //hello
+        db.saveInfo(data, function(err) {
+            if (err)
+                res.render('errorPage', { message: "Something went wrong. Please try again" });
+            else {
+                req.session.user.f_name = data.fullName;
+                res.redirect('/');
             }
         });
     } else {
