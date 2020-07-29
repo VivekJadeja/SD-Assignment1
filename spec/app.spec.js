@@ -105,11 +105,4 @@ describe('routes tests ', function() {
             .set('Accept', 'application/json')
             .expect(200, done);
     });
-
-    it('price module get route should return 2542.5', function(done) {
-        var app = supertest(server);
-        app.get('/price/1500/TX')
-            .set('Accept', 'application/json')
-            .expect(200, done);
-    });
 });
