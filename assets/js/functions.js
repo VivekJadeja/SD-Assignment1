@@ -7,7 +7,7 @@ function validateEmail(email) {
 module.exports.validateEmail = validateEmail;
 
 function validateInput(email, password) {
-    if ((validateEmail(email)) && (email !== "") && (password !== "") && (email) && (password))
+    if ((email !== "") && (password !== "") && (email) && (password) && (validateEmail(email)))
         return true;
     else
         return false;
