@@ -1,27 +1,5 @@
 var dbFunctions = require('../server/db.js');
 var passwordHash = require('password-hash');
-describe("Get QouteRequest ", function() {
-
-    it("Should return false if valid email entered and information returned from database", function() {
-        dbFunctions.getCustomerAddress("daniel.evans17@outlook.com", function(err, info) {
-            if (err)
-                expect(err).toEqual(true)
-            else {
-                expect(err).toEqual(false)
-            }
-        });
-    });
-
-    it("Should return true if invalid email entered and error returned from database", function() {
-        dbFunctions.getCustomerAddress("danieloutlook.com", function(err, info) {
-            if (err)
-                expect(err).toEqual(true)
-            else {
-                expect(err).toEqual(false)
-            }
-        });
-    });
-});
 
 describe("Post QouteRequest ", function() {
 
@@ -35,11 +13,8 @@ describe("Post QouteRequest ", function() {
     }
     it("Should return false if valid fields are sent and successfully added to database", function() {
         dbFunctions.saveInfo(data, function(err, info) {
-            if (err)
-                expect(err).toEqual(true)
-            else {
-                expect(err).toEqual(false)
-            }
+            expect(err).toEqual(false)
+
         });
     });
 
@@ -51,6 +26,14 @@ describe("Post QouteRequest ", function() {
             else {
                 expect(err).toEqual(false)
             }
+        });
+    });
+});
+describe("Get QouteRequest ", function() {
+
+    it("Should return false if valid email entered and information returned from database", function() {
+        dbFunctions.getCustomerAddress("daniel.evans17@outlook.com", function(err, info) {
+            expect(err).toEqual(false)
         });
     });
 });
