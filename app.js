@@ -132,7 +132,6 @@ app.get('/emailCheck/:email', function(req, res) {
 
 // PROFILE MANAGEMENT MODULE
 app.get('/registerProfile', function(req, res) {
-    console.log(req.session);
     if (!req.session.user)
         res.render('errorPage', { message: "You need to be logged in" });
     else if (req.session.user.has_filled_out_profile) {
