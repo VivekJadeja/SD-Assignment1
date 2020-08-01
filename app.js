@@ -29,7 +29,7 @@ function user(email, f_name, has_requested_quote, has_filled_out_profile) {
     this.has_requested_quote = has_requested_quote;
     this.has_filled_out_profile = has_filled_out_profile;
 }
-
+module.exports.user = user;
 // ----------------------------- ROUTES -------------------------------- //
 // HOME ROUTE
 app.get('/', function(req, res) {
@@ -132,22 +132,19 @@ app.get('/emailCheck/:email', function(req, res) {
 
 // PROFILE MANAGEMENT MODULE
 app.get('/registerProfile', function(req, res) {
+    console.log(req.session);
     if (!req.session.user)
-        res.render('errorPage', "You need to be logged in");
-    else if (req.session.user.has_filled_out_profile)
-    {
-        let email= req.session.user.email;
-        db.getProfileInfo(email, function(err, info)
-        {
-            if(err)
-                res.render('errorPage', "Something went wrong. Try again.");
-            else
-            {
-                res.render('updateProfile', {info: info[0]});
+        res.render('errorPage', { message: "You need to be logged in" });
+    else if (req.session.user.has_filled_out_profile) {
+        let email = req.session.user.email;
+        db.getProfileInfo(email, function(err, info) {
+            if (err)
+                res.render('errorPage', { message: "Something went wrong. Try again." });
+            else {
+                res.render('updateProfile', { info: info[0] });
             }
         });
-    }
-    else
+    } else
         res.sendFile(path.join(__dirname, '/views/registerProfile.html'));
 });
 
@@ -161,7 +158,7 @@ app.post('/registerProfile', function(req, res) {
             state: req.body.state,
             zipcode: req.body.zipCode,
             email: req.session.user ? req.session.user.email : undefined,
-            historyExists: req.session.user? req.session.user.has_requested_quote: 0
+            historyExists: req.session.user ? req.session.user.has_requested_quote : 0
         }
         //validating the profile information of the user
     var _message = functions.validateRegisterProfile(data)
@@ -189,7 +186,7 @@ app.post('/updateProfile', function(req, res) {
             state: req.body.state,
             zipcode: req.body.zipCode,
             email: req.session.user ? req.session.user.email : undefined,
-            historyExists: req.session.user? req.session.user.has_requested_quote: 0
+            historyExists: req.session.user ? req.session.user.has_requested_quote : 0
         }
         //validating the profile information of the user
     var _message = functions.validateRegisterProfile(data)

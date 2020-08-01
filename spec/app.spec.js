@@ -105,4 +105,11 @@ describe('routes tests ', function() {
             .set('Accept', 'application/json')
             .expect(200, done);
     });
+
+    it('app get price route should return 200 with html file', function(done) {
+        var app = supertest(server);
+        app.get('/price/2/TX')
+            .set('Accept', 'application/json')
+            .expect(200, done);
+    });
 });

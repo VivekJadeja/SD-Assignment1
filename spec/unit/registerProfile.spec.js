@@ -1,4 +1,5 @@
 var registerProfileCheck = require('../../assets/js/functions.js');
+var appConstructor = require('../../app')
 
 describe("Registering Profile Verification tests ", function() {
     var dataobject = {
@@ -127,4 +128,11 @@ describe("Registering Profile Verification tests ", function() {
         expect(result).toEqual("true");
     });
 
+});
+
+describe("App Constructor Test", function() {
+    it("Should return nothing", function() {
+        var result = new appConstructor.user("123@gmail.com", "Mayoor", 1, 1);
+        expect(result).isNot(null);
+    })
 });
